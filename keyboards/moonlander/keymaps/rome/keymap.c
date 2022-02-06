@@ -8,7 +8,9 @@ enum custom_keycodes
 {
     RGB_SLD = ML_SAFE_RANGE,
     ST_MACRO_0,
-    M_QUEST_BANG
+    M_QUEST_BANG,
+    M_LED_RESET,
+    M_ITER_LED
 };
 
 enum layers
@@ -19,7 +21,6 @@ enum layers
     L_MOUSE,
     L_NAV
 };
-
 // TODO: ctrl+z, win+e, calculator
 // TODO: bspace and del together (tap: bspace; hold: del; tap-hold to repeat bspace)
 // TODO: find out where to put ¨, or ä, ö, ü, é, è
@@ -33,10 +34,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_COLEMAK_DH] = LAYOUT_moonlander(
     KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,        /**/  KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         KC_DELETE,
     KC_TAB,         KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,           XXXXXXX,      /**/  XXXXXXX,        KC_J,           KC_L,           KC_U,           CH_Y,           M_QUEST_BANG,   KC_BSPACE,
-    CTL_T(CH_QUOT), KC_A,           KC_R,           KC_S,           KC_T,           KC_G,           XXXXXXX,      /**/  XXXXXXX,        KC_M,           KC_N,           KC_E,           KC_I,           KC_O,           CTL_T(CH_DQUO),
+    CTL_T(KC_ESC),  KC_A,           KC_R,           KC_S,           KC_T,           KC_G,           XXXXXXX,      /**/  XXXXXXX,        KC_M,           KC_N,           KC_E,           KC_I,           KC_O,           CTL_T(KC_ENTER),
     KC_LSFT,        CH_Z,           KC_X,           KC_C,           KC_D,           KC_V,                         /**/                  KC_K,           KC_H,           CH_COMM,        CH_DOT,         CH_MINS,        KC_RSFT,
-    KC_LCTL,        XXXXXXX,        XXXXXXX,        KC_LWIN,        KC_LALT,        RESET,                        /**/                  DEBUG,          XXXXXXX,        KC_RWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,
-                                                                    KC_SPACE,       TT(L_SYMBOLS),    TG(L_NAV),  /**/  TG(L_QWERTZ),   TT(L_MOUSE),    KC_ENTER
+    KC_LCTL,        XXXXXXX,        XXXXXXX,        KC_LWIN,        KC_LALT,                        RESET,        /**/  DEBUG,                          XXXXXXX,        KC_RWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,
+                                                                    SFT_T(KC_SPACE),TT(L_SYMBOLS),  TG(L_NAV),    /**/  TG(L_QWERTZ),   TT(L_MOUSE),    XXXXXXX /*KC_ENTER*/
   ),
   [L_QWERTZ] = LAYOUT_moonlander(
     _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
@@ -48,22 +49,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [L_SYMBOLS] = LAYOUT_moonlander(
     _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/   _______,        _______,        _______,        _______,        _______,        _______,        _______,
-    _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/   _______,        XXXXXXX,        XXXXXXX,        KC_UP,          KC_INSERT,      XXXXXXX,        _______,
+    _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/   _______,        XXXXXXX,        KC_INSERT,      KC_UP,          KC_DEL,         XXXXXXX,        _______,
     _______,        KC_3,           KC_2,           KC_1,           KC_0,           KC_9,           _______,      /**/   _______,        XXXXXXX,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_PGUP,        _______,
     _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        CH_DOT,         KC_BSPACE,                    /**/                   XXXXXXX,        KC_HOME,        KC_END,         XXXXXXX,        KC_PGDOWN,      _______,
     _______,        _______,        _______,        _______,        _______,        _______,                      /**/                   _______,        _______,        _______,        _______,        _______,        _______,
                                                                     _______,        _______,        _______,      /**/   _______,        _______,        _______
   ),
   [L_MOUSE] = LAYOUT_moonlander(
-    _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/   _______,        _______,        _______,        _______,        _______,        _______,        _______,
-    _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/   _______,        XXXXXXX,        XXXXXXX,        KC_MS_UP,       XXXXXXX,        XXXXXXX,        _______,
-    _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/   _______,        XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_ACCEL0,   _______,
+    RGB_TOG,        RGB_MOD,        RGB_RMOD,       _______,        _______,        _______,        _______,      /**/   _______,        _______,        _______,        _______,        _______,        _______,        _______,
+    RGB_HUI,        RGB_SAI,        RGB_VAI,        RGB_SPI,        _______,        _______,        _______,      /**/   _______,        XXXXXXX,        XXXXXXX,        KC_MS_UP,       XXXXXXX,        XXXXXXX,        _______,
+    RGB_HUD,        RGB_SAD,        RGB_VAD,        RGB_SPD,        _______,        _______,        _______,      /**/   _______,        XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_ACCEL0,   _______,
     _______,        _______,        _______,        _______,        _______,        _______,                      /**/                   XXXXXXX,        KC_MS_BTN1,     KC_MS_BTN2,     XXXXXXX,        KC_MS_ACCEL1,   _______,
-    _______,        _______,        _______,        _______,        _______,        _______,                      /**/                   _______,        _______,        _______,        _______,        _______,        _______,
+    RGB_M_P,        RGB_M_B,        RGB_M_R,        RGB_M_SW,       _______,        _______,                      /**/                   _______,        _______,        _______,        _______,        _______,        _______,
                                                                     _______,        _______,        _______,      /**/   _______,        _______,        _______
   ),
   [L_NAV] = LAYOUT_moonlander(
-    _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  TO(3),          XXXXXXX,        XXXXXXX,        XXXXXXX,        ST_MACRO_0,     _______,        _______,
+    _______,        _______,        _______,        _______,        _______,        M_LED_RESET,    M_ITER_LED,   /**/  TO(3),          XXXXXXX,        XXXXXXX,        XXXXXXX,        ST_MACRO_0,     _______,        _______,
     KC_MEDIA_STOP,KC_MEDIA_PLAY_PAUSE,KC_MS_BTN1,   KC_MS_UP,       KC_MS_BTN2,     _______,        _______,      /**/  _______,        XXXXXXX,        KC_1,           KC_2,           KC_3,           XXXXXXX,        _______,
     KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_MS_LEFT, KC_MS_DOWN,     KC_MS_RIGHT,    _______,        _______,      /**/  XXXXXXX,        XXXXXXX,        KC_4,           KC_5,           KC_6,           XXXXXXX,        _______,
     KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,XXXXXXX,      XXXXXXX,        XXXXXXX,        _______,                      /**/                  KC_CALCULATOR,  KC_7,           KC_8,           KC_9,           XXXXXXX,        _______,
@@ -100,7 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     dprintf("get_custom_auto_shifted_key: keycode=%08x pressed=%d tap.count=%d tap.interrupted=%d\n", keycode, record->event.pressed, record->tap.count, record->tap.interrupted);
     switch (keycode) {
-        case KC_BSPACE:
+        // case KC_BSPACE:
         case M_QUEST_BANG:
         case KC_4 ... KC_7: return true;
     }
@@ -125,7 +126,7 @@ typedef struct {
 
 autoshift_codes_t map_autshift_codes(const uint16_t keycode) {
     switch (keycode) {
-        case KC_BSPACE: return (autoshift_codes_t){KC_BSPACE, KC_DELETE};
+        // case KC_BSPACE: return (autoshift_codes_t){KC_BSPACE, KC_DELETE};
         case M_QUEST_BANG: return (autoshift_codes_t){CH_QUES, CH_EXLM};
         case KC_7: return (autoshift_codes_t){KC_7, CH_SLSH};  // '/'
         case KC_6: return (autoshift_codes_t){KC_6, CH_ASTR};  // '*'
@@ -175,90 +176,79 @@ void keyboard_post_init_user(void) {
     // debug_keyboard = true;
 }
 
-/*static const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
-    [L_COLEMAK_DH] = {{255, 220, 201}, {141, 255, 233}, {255, 220, 201}, {33, 255, 255},  {14, 255, 255},  {0, 0, 0},       {0, 0, 0},      {0, 0, 0},       {0, 0, 0},
-                      {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},      {0, 0, 0},       {0, 0, 0},
-                      {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {105, 255, 255}, {0, 0, 0},       {33, 255, 255}, {0, 0, 0},       {0, 0, 0},
-                      {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {15, 166, 195}, {105, 255, 255}, {0, 0, 0},
-                      {14, 255, 255},  {14, 255, 255},  {14, 255, 255},  {14, 255, 255},  {141, 255, 233}, {0, 0, 0},       {14, 255, 255}, {0, 0, 0},       {14, 255, 255},
-                      {141, 255, 233}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {14, 255, 255},  {141, 255, 233}, {0, 0, 0},      {0, 0, 0},       {0, 0, 0},
-                      {14, 255, 255},  {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {105, 255, 255}, {0, 0, 0},       {33, 255, 255}, {0, 0, 0},       {0, 0, 0},
-                      {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {33, 255, 255}, {0, 0, 0},       {0, 0, 0}},
+static const HSV PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
+    [L_COLEMAK_DH] = {{255, 220, 201}, {141, 255, 233}, {255, 220, 201}, {33, 255, 255},  {14, 255, 255},  {HSV_OFF},       {HSV_OFF},      {HSV_OFF},       {HSV_OFF},
+                      {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},      {HSV_OFF},       {HSV_OFF},
+                      {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {105, 255, 255}, {HSV_OFF},       {33, 255, 255}, {HSV_OFF},       {HSV_OFF},
+                      {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {15, 166, 195}, {105, 255, 255}, {HSV_OFF},
+                      {14, 255, 255},  {14, 255, 255},  {14, 255, 255},  {14, 255, 255},  {141, 255, 233}, {HSV_OFF},       {14, 255, 255}, {HSV_OFF},       {14, 255, 255},
+                      {141, 255, 233}, {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {14, 255, 255},  {141, 255, 233}, {HSV_OFF},      {HSV_OFF},       {HSV_OFF},
+                      {14, 255, 255},  {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {105, 255, 255}, {HSV_OFF},       {33, 255, 255}, {HSV_OFF},       {HSV_OFF},
+                      {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {33, 255, 255}, {HSV_OFF},       {HSV_OFF}},
 
     [L_QWERTZ] = {{255, 220, 201}, {141, 255, 233}, {255, 220, 201}, {33, 255, 255},  {14, 255, 255},  {105, 255, 255}, {105, 255, 255}, {105, 255, 255}, {105, 255, 255},
                   {14, 255, 255},  {105, 255, 255}, {105, 255, 255}, {105, 255, 255}, {105, 255, 255}, {33, 255, 255},  {105, 255, 255}, {105, 255, 255}, {105, 255, 255},
                   {105, 255, 255}, {33, 255, 255},  {105, 255, 255}, {105, 255, 255}, {0, 0, 255},     {105, 255, 255}, {33, 255, 255},  {105, 255, 255}, {105, 255, 255},
-                  {105, 255, 255}, {105, 255, 255}, {255, 220, 201}, {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {15, 166, 195},  {105, 255, 255}, {0, 0, 0},
+                  {105, 255, 255}, {105, 255, 255}, {255, 220, 201}, {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {15, 166, 195},  {105, 255, 255}, {HSV_OFF},
                   {14, 255, 255},  {14, 255, 255},  {14, 255, 255},  {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {105, 255, 255}, {14, 255, 255},  {14, 255, 255},
                   {141, 255, 233}, {105, 255, 255}, {105, 255, 255}, {105, 255, 255}, {14, 255, 255},  {141, 255, 233}, {105, 255, 255}, {105, 255, 255}, {105, 255, 255},
                   {14, 255, 255},  {14, 255, 255},  {105, 255, 255}, {105, 255, 255}, {0, 0, 255},     {105, 255, 255}, {33, 255, 255},  {105, 255, 255}, {105, 255, 255},
                   {105, 255, 255}, {105, 255, 255}, {15, 166, 195},  {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {33, 255, 255},  {33, 255, 255},  {255, 220, 201}},
 
-    [L_SYMBOLS] = {{0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},
-                   {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},
-                   {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},
-                   {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},
-                   {15, 166, 195}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {15, 166, 195}, {15, 166, 195}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {15, 166, 195}, {0, 0, 0},
-                   {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0}},
+    [L_SYMBOLS] = {{HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
+                   {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
+                   {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
+                   {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
+                   {15, 166, 195}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {15, 166, 195}, {15, 166, 195}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {15, 166, 195}, {HSV_OFF},
+                   {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF}},
 
-    [L_MOUSE] = {{0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},
-                 {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},
-                 {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},
-                 {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},
-                 {15, 166, 195}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {15, 166, 195}, {15, 166, 195}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {15, 166, 195}, {0, 0, 0},
-                 {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0},      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},      {0, 0, 0}},
+    [L_MOUSE] = {{0}},
 
-    [L_NAV] = {{0, 0, 0},       {255, 220, 201}, {33, 255, 255},  {141, 255, 233}, {0, 0, 0},       {0, 0, 0},       {255, 220, 201}, {33, 255, 255},  {141, 255, 233}, {0, 0, 0},      {0, 0, 0},
-               {0, 0, 0},       {105, 255, 255}, {0, 0, 0},       {105, 255, 255}, {0, 0, 0},       {105, 255, 255}, {105, 255, 255}, {0, 0, 0},       {33, 255, 255},  {0, 0, 0},      {0, 0, 0},
-               {105, 255, 255}, {0, 0, 0},       {255, 220, 201}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},      {0, 0, 0},
-               {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {105, 255, 255}, {33, 255, 255},  {0, 0, 0},      {0, 0, 0},
-               {0, 0, 0},       {105, 255, 255}, {105, 255, 255}, {141, 255, 233}, {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {0, 0, 0},       {141, 255, 233}, {0, 0, 0},      {141, 255, 233},
-               {105, 255, 255}, {0, 0, 0},       {141, 255, 233}, {141, 255, 233}, {141, 255, 233}, {141, 255, 233}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {33, 255, 255}, {15, 166, 195},
-               {0, 0, 0},       {0, 0, 0},       {105, 255, 255}, {0, 0, 0},       {0, 0, 0},       {255, 220, 201}},
+    [L_NAV] = {{HSV_OFF},       {255, 220, 201}, {33, 255, 255},  {141, 255, 233}, {HSV_OFF},       {HSV_OFF},       {255, 220, 201}, {33, 255, 255},  {141, 255, 233}, {HSV_OFF},      {HSV_OFF},
+               {HSV_OFF},       {105, 255, 255}, {HSV_OFF},       {105, 255, 255}, {HSV_OFF},       {105, 255, 255}, {105, 255, 255}, {HSV_OFF},       {33, 255, 255},  {HSV_OFF},      {HSV_OFF},
+               {105, 255, 255}, {HSV_OFF},       {255, 220, 201}, {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},      {HSV_OFF},
+               {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {105, 255, 255}, {33, 255, 255},  {HSV_OFF},      {HSV_OFF},
+               {HSV_OFF},       {105, 255, 255}, {105, 255, 255}, {141, 255, 233}, {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {HSV_OFF},       {141, 255, 233}, {HSV_OFF},      {141, 255, 233},
+               {105, 255, 255}, {HSV_OFF},       {141, 255, 233}, {141, 255, 233}, {141, 255, 233}, {141, 255, 233}, {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {33, 255, 255}, {15, 166, 195},
+               {HSV_OFF},       {HSV_OFF},       {105, 255, 255}, {HSV_OFF},       {HSV_OFF},       {255, 220, 201}},
 
-};*/
+};
 
 HSV get_layer_color(int layer) {
     switch (layer) {
         case L_COLEMAK_DH: return (HSV){43, 255, 255};
         case L_QWERTZ: return (HSV){43, 127, 255};
         case L_SYMBOLS: return (HSV){23, 255, 255};
-        case L_MOUSE: return (HSV){23, 255, 255};  // crashes at higher hue, no idea why!
+        case L_MOUSE: return (HSV){120, 255, 255};
         case L_NAV: return (HSV){43, 255, 127};
     }
-    return (HSV){0, 0, 0};
+    return (HSV){HSV_OFF};
 }
-
-//extern rgb_config_t rgb_matrix_config;
 
 void set_layer_color(int layer) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        /*HSV hsv = {
-            .h = pgm_read_byte(&ledmap[layer][i][0]),
-            .s = pgm_read_byte(&ledmap[layer][i][1]),
-            .v = pgm_read_byte(&ledmap[layer][i][2]),
-        };*/
-        HSV hsv = {0};
+        HSV hsv = ledmap[layer][i];
         if (!hsv.h && !hsv.s && !hsv.v) {
-            HSV color = get_layer_color(layer);
-            rgb_matrix_set_color(i, color.h, color.s, color.v);
+            // HSV color = get_layer_color(layer);
+            // rgb_matrix_set_color(i, color.h, color.s, color.v);
         } else {
-            RGB   rgb = hsv_to_rgb(hsv);
-            //float f   = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-            float f   = (float)rgb_matrix_get_val() / UINT8_MAX;
-            rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+            //hsv.v   = (uint32_t)hsv.v * rgb_matrix_get_val() / 255U;  // TODO only do this with a global dim level so that it can be adjusted seperately
+            RGB rgb = hsv_to_rgb(hsv);
+            // float f   = (float)rgb_matrix_get_val() / 255.f;  TODO
+            // rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);  TODO
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
     }
 }
-/*void rgb_matrix_indicators_user(void) {
+
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (rgb_matrix_get_suspend_state() || keyboard_config.disable_layer_led) {
         return;
     }
-    const int layer = biton32(layer_state);
+    const uint8_t layer = get_highest_layer(layer_state);
     switch (layer) {
-        case L_COLEMAK_DH ... L_NAV: set_layer_color(layer); break;
+        case L_COLEMAK_DH ... L_NAV: set_layer_color(layer); break;  // TODO
         default:
-            if (rgb_matrix_get_flags() == LED_FLAG_NONE) rgb_matrix_set_color_all(0, 0, 0);
             break;
     }
-}*/
+}
