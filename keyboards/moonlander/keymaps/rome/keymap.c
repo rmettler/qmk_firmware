@@ -4,10 +4,16 @@
 #include <quantum/keymap_extras/keymap_german_ch.h>
 #include <quantum/keymap_extras/sendstring_german_ch.h>
 
+#define CH_LRBR S(CH_8)
+#define CH_RRBR S(CH_9)
+#define CH_LSBR ALGR(CH_UDIA)
+#define CH_RSBR ALGR(CH_DIAE)
+#define CH_LABR CH_LABK
+#define CH_RABR CH_RABK
+
 enum custom_keycodes
 {
     RGB_SLD = ML_SAFE_RANGE,
-    ST_MACRO_0,
     M_QUEST_BANG,
     M_LED_RESET,
     M_ITER_LED
@@ -17,10 +23,23 @@ enum layers
 {
     L_COLEMAK_DH = 0,
     L_QWERTZ,
-    L_SYMBOLS,
+    L_SYM,
     L_MOUSE,
-    L_NAV
+    L_NAV,
+    L_SETTINGS
 };
+
+// TODO: home row mods (shift) might work when using: https://docs.qmk.fm/#/tap_hold
+// #define TAPPING_FORCE_HOLD_PER_KEY
+// bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {}
+
+// also tune it using:
+// #define PERMISSIVE_HOLD_PER_KEY
+// or
+// #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
+// at least tune the timeout per key
+
 // TODO: ctrl+z, win+e, calculator
 // TODO: bspace and del together (tap: bspace; hold: del; tap-hold to repeat bspace)
 // TODO: find out where to put ¨, or ä, ö, ü, é, è
@@ -31,13 +50,13 @@ enum layers
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [L_COLEMAK_DH] = LAYOUT_moonlander(
-    KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,        /**/  KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         KC_DELETE,
-    KC_TAB,         KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,           XXXXXXX,      /**/  XXXXXXX,        KC_J,           KC_L,           KC_U,           CH_Y,           M_QUEST_BANG,   KC_BSPACE,
-    CTL_T(KC_ESC),  KC_A,           KC_R,           KC_S,           KC_T,           KC_G,           XXXXXXX,      /**/  XXXXXXX,        KC_M,           KC_N,           KC_E,           KC_I,           KC_O,           CTL_T(KC_ENTER),
-    KC_LSFT,        CH_Z,           KC_X,           KC_C,           KC_D,           KC_V,                         /**/                  KC_K,           KC_H,           CH_COMM,        CH_DOT,         CH_MINS,        KC_RSFT,
-    KC_LCTL,        XXXXXXX,        XXXXXXX,        KC_LWIN,        KC_LALT,                        RESET,        /**/  DEBUG,                          XXXXXXX,        KC_RWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,
-                                                                    SFT_T(KC_SPACE),TT(L_SYMBOLS),  TG(L_NAV),    /**/  TG(L_QWERTZ),   TT(L_MOUSE),    XXXXXXX /*KC_ENTER*/
+  [L_COLEMAK_DH] = LAYOUT_moonlander( /* TODO: update umlaut */
+    KC_ESCAPE,      KC_1,           KC_2,           KC_3,            KC_4,            KC_5,         XXXXXXX,         /**/  XXXXXXX,        KC_6,           KC_7,            KC_8,            KC_9,           KC_0,           KC_DELETE,
+    KC_TAB,         KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         XXXXXXX,         /**/  XXXXXXX,        KC_J,           KC_L,            LT(0, KC_U),     CH_Y,           M_QUEST_BANG,   KC_BSPACE,
+    CTL_T(KC_ESC),  LT(0, KC_A),    KC_R,           LT(L_SYM, KC_S), LT(L_NAV, KC_T), KC_G,         XXXXXXX,         /**/  XXXXXXX,        KC_M,           LT(L_NAV, KC_N), LT(L_SYM, KC_E), KC_I,           LT(0, KC_O),    CTL_T(KC_ENTER),
+    KC_LSFT,        CH_Z,           KC_X,           KC_C,            KC_D,            KC_V,                          /**/                  KC_K,           KC_H,            CH_COMM,         CH_DOT,         CH_MINS,        KC_RSFT,
+    KC_LCTL,        XXXXXXX,        XXXXXXX,        KC_LWIN,         KC_LALT,                       RESET,           /**/  DEBUG,                          KC_ALGR,         KC_RWIN,         XXXXXXX,        XXXXXXX,        XXXXXXX,
+                                                                     CTL_T(KC_SPACE), TT(L_SYM),    TG(L_SETTINGS),  /**/  TG(L_QWERTZ),   TT(L_NAV),      KC_LSHIFT /*KC_ENTER*/
   ),
   [L_QWERTZ] = LAYOUT_moonlander(
     _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
@@ -47,26 +66,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,        _______,        _______,        _______,        _______,        _______,                      /**/                  _______,        _______,        _______,        _______,        _______,        _______,
                                                                     _______,        _______,        _______,      /**/  _______,        _______,        _______
   ),
-  [L_SYMBOLS] = LAYOUT_moonlander(
-    _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/   _______,        _______,        _______,        _______,        _______,        _______,        _______,
-    _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/   _______,        XXXXXXX,        KC_INSERT,      KC_UP,          KC_DEL,         XXXXXXX,        _______,
-    _______,        KC_3,           KC_2,           KC_1,           KC_0,           KC_9,           _______,      /**/   _______,        XXXXXXX,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_PGUP,        _______,
-    _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        CH_DOT,         KC_BSPACE,                    /**/                   XXXXXXX,        KC_HOME,        KC_END,         XXXXXXX,        KC_PGDOWN,      _______,
-    _______,        _______,        _______,        _______,        _______,        _______,                      /**/                   _______,        _______,        _______,        _______,        _______,        _______,
-                                                                    _______,        _______,        _______,      /**/   _______,        _______,        _______
+  [L_SYM] = LAYOUT_moonlander(
+    _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,        /**/  KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         _______,
+    _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/  _______,        XXXXXXX,        KC_INSERT,      KC_UP,          KC_DEL,         XXXXXXX,        _______,
+    _______,        KC_3,           KC_2,           KC_1,           KC_0,           KC_9,           _______,      /**/  _______,        XXXXXXX,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_PGUP,        _______,
+    _______,        CH_LRBR,        CH_RRBR,        CH_DOT,         KC_BSPACE,      KC_DEL,                       /**/                  XXXXXXX,        KC_HOME,        KC_END,         XXXXXXX,        KC_PGDOWN,      _______,
+    _______,        _______,        _______,        _______,        _______,        _______,                      /**/                  _______,        _______,        _______,        _______,        _______,        _______,
+                                                                    _______,        _______,        _______,      /**/  _______,        _______,        _______
+  ),
+  [L_NAV] = LAYOUT_moonlander( /* TODO: make dead keys direct, ignore modifiers; switch minus underscore, so that shift isnt needed; disable normal keys */
+    _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,        /**/  KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,        _______,
+    _______,        _______,        CH_AMPR,        CH_PIPE,        CH_CIRC,        CH_TILD,        _______,      /**/  _______,        _______,        CH_EXLM,        CH_LCBR,        CH_RCBR,        CH_QUES,        _______,
+    _______,        CH_PLUS,        CH_MINS,        CH_ASTR,        CH_SLSH,        CH_EQL,         _______,      /**/  _______,        CH_QUOT,        CH_LRBR,        CH_LSBR,        CH_RSBR,        CH_RRBR,        _______,
+    _______,        CH_DLR,         CH_AT,          CH_HASH,        CH_BSLS,        ALGR(CH_E),                   /**/                  CH_GRV,         CH_DQUO,        CH_LABR,        CH_RABR,        _______,        _______,
+    _______,        _______,        _______,        _______,        _______,        _______,                      /**/                  _______,        _______,        _______,        _______,        _______,        _______,
+                                                                    _______,        _______,        _______,      /**/  _______,        _______,        _______
   ),
   [L_MOUSE] = LAYOUT_moonlander(
-    RGB_TOG,        RGB_MOD,        RGB_RMOD,       _______,        _______,        _______,        _______,      /**/   _______,        _______,        _______,        _______,        _______,        _______,        _______,
-    RGB_HUI,        RGB_SAI,        RGB_VAI,        RGB_SPI,        _______,        _______,        _______,      /**/   _______,        XXXXXXX,        XXXXXXX,        KC_MS_UP,       XXXXXXX,        XXXXXXX,        _______,
-    RGB_HUD,        RGB_SAD,        RGB_VAD,        RGB_SPD,        _______,        _______,        _______,      /**/   _______,        XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_ACCEL0,   _______,
-    _______,        _______,        _______,        _______,        _______,        _______,                      /**/                   XXXXXXX,        KC_MS_BTN1,     KC_MS_BTN2,     XXXXXXX,        KC_MS_ACCEL1,   _______,
-    RGB_M_P,        RGB_M_B,        RGB_M_R,        RGB_M_SW,       _______,        _______,                      /**/                   _______,        _______,        _______,        _______,        _______,        _______,
-                                                                    _______,        _______,        _______,      /**/   _______,        _______,        _______
+    RGB_TOG,        RGB_MOD,        RGB_RMOD,       _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
+    RGB_HUI,        RGB_SAI,        RGB_VAI,        RGB_SPI,        _______,        _______,        _______,      /**/  _______,        XXXXXXX,        XXXXXXX,        KC_MS_UP,       XXXXXXX,        XXXXXXX,        _______,
+    RGB_HUD,        RGB_SAD,        RGB_VAD,        RGB_SPD,        _______,        _______,        _______,      /**/  _______,        XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_ACCEL0,   _______,
+    _______,        _______,        _______,        _______,        _______,        _______,                      /**/                  XXXXXXX,        KC_MS_BTN1,     KC_MS_BTN2,     XXXXXXX,        KC_MS_ACCEL1,   _______,
+    RGB_M_P,        RGB_M_B,        RGB_M_R,        RGB_M_SW,       _______,        _______,                      /**/                  _______,        _______,        _______,        _______,        _______,        _______,
+                                                                    _______,        _______,        _______,      /**/  _______,        _______,        _______
   ),
-  [L_NAV] = LAYOUT_moonlander(
-    _______,        _______,        _______,        _______,        _______,        M_LED_RESET,    M_ITER_LED,   /**/  TO(3),          XXXXXXX,        XXXXXXX,        XXXXXXX,        ST_MACRO_0,     _______,        _______,
+  [L_SETTINGS] = LAYOUT_moonlander(
+    _______,        _______,        _______,        _______,        _______,        M_LED_RESET,    M_ITER_LED,   /**/  _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,        _______,
     KC_MEDIA_STOP,KC_MEDIA_PLAY_PAUSE,KC_MS_BTN1,   KC_MS_UP,       KC_MS_BTN2,     _______,        _______,      /**/  _______,        XXXXXXX,        KC_1,           KC_2,           KC_3,           XXXXXXX,        _______,
-    KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_MS_LEFT, KC_MS_DOWN,     KC_MS_RIGHT,    _______,        _______,      /**/  XXXXXXX,        XXXXXXX,        KC_4,           KC_5,           KC_6,           XXXXXXX,        _______,
+    KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_MS_LEFT, KC_MS_DOWN,     KC_MS_RIGHT,    _______,        _______,      /**/  _______,        XXXXXXX,        KC_4,           KC_5,           KC_6,           XXXXXXX,        _______,
     KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,XXXXXXX,      XXXXXXX,        XXXXXXX,        _______,                      /**/                  KC_CALCULATOR,  KC_7,           KC_8,           KC_9,           XXXXXXX,        _______,
     _______,        _______,        KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   _______,                      /**/                  WEBUSB_PAIR,    KC_0,           _______,        _______,        _______,        _______,
                                                                     _______,        _______,        _______,      /**/  _______,        _______,        _______
@@ -74,19 +101,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    dprintf("process_record_user: keycode=%08x pressed=%d tap.count=%d tap.interrupted=%d time=%d\n", keycode, record->event.pressed, record->tap.count, record->tap.interrupted, record->event.time);
+uint16_t map_umlaut(uint16_t keycode) {
     switch (keycode) {
-        case CTL_T(CH_DQUO):
-            // Workaround because mod-tap does not work with shifted keys
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(CH_DQUO);
-                return false;
-            }
-            return true;
-        case ST_MACRO_0:
+        case LT(0, KC_A): return CH_ADIA;
+        case LT(0, KC_O): return CH_ODIA;
+        case LT(0, KC_U): return CH_UDIA;
+    }
+    return KC_NO;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    dprintf("process_record_user: keycode=%08x (c,r)=%d,%d pressed=%d tap.count=%d tap.interrupted=%d time=%d\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed,
+            record->tap.count, record->tap.interrupted, record->event.time);
+    switch (keycode) {
+        case LT(0, KC_A):
+        case LT(0, KC_O):
+        case LT(0, KC_U):
             if (record->event.pressed) {
-                SEND_STRING(SS_LGUI(SS_TAP(X_X)) SS_DELAY(100) SS_TAP(X_U) SS_DELAY(100) SS_TAP(X_S));
+                const uint8_t kc = keycode & 0xFFu;
+                if (record->tap.count) {
+                    tap_code16(kc);
+                } else {
+                    const uint8_t mods = get_mods();
+                    if ((mods & MOD_MASK_SHIFT) == mods) {
+                        unregister_mods(mods);
+                        tap_code16(CH_DIAE);
+                        register_mods(mods);
+                        tap_code16(kc);
+                    } else {
+                        tap_code16(map_umlaut(kc));
+                    }
+                }
+                return false;
             }
             return true;
         case RGB_SLD:
@@ -101,22 +147,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     dprintf("get_custom_auto_shifted_key: keycode=%08x pressed=%d tap.count=%d tap.interrupted=%d\n", keycode, record->event.pressed, record->tap.count, record->tap.interrupted);
     switch (keycode) {
-        // case KC_BSPACE:
         case M_QUEST_BANG:
-        case KC_4 ... KC_7: return true;
+        // case KC_A:
+            return true;
+        case KC_1 ... KC_3:
+        case KC_5 ... KC_6:
+        case KC_9 ... KC_0:
+        case CH_DOT:
+            if (layer_state_is(L_SYM)) return true;
     }
     return false;
 }
-
-// uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         case AUTO_SHIFT_NUMERIC:
-//         case AUTO_SHIFT_SPECIAL:
-//         case AUTO_SHIFT_ALPHA:
-//         default:
-//             return get_generic_autoshift_timeout();
-//     }
-// }
 
 typedef struct {
     uint16_t normal;
@@ -127,11 +168,15 @@ typedef struct {
 autoshift_codes_t map_autshift_codes(const uint16_t keycode) {
     switch (keycode) {
         // case KC_BSPACE: return (autoshift_codes_t){KC_BSPACE, KC_DELETE};
-        case M_QUEST_BANG: return (autoshift_codes_t){CH_QUES, CH_EXLM};
-        case KC_7: return (autoshift_codes_t){KC_7, CH_SLSH};  // '/'
-        case KC_6: return (autoshift_codes_t){KC_6, CH_ASTR};  // '*'
-        case KC_5: return (autoshift_codes_t){KC_5, CH_MINS};  // '-'
-        case KC_4: return (autoshift_codes_t){KC_4, CH_PLUS};  // '+'
+        case M_QUEST_BANG:
+            return (autoshift_codes_t){CH_QUES, CH_EXLM};
+        case KC_6: return (autoshift_codes_t){KC_6, CH_LRBR};  // '('
+        case KC_5: return (autoshift_codes_t){KC_5, CH_RRBR};  // ')'
+        case KC_3: return (autoshift_codes_t){KC_3, CH_PLUS};  // '+'
+        case KC_2: return (autoshift_codes_t){KC_2, CH_MINS};  // '-'
+        case KC_1: return (autoshift_codes_t){KC_1, CH_ASTR};  // '*'
+        case KC_0: return (autoshift_codes_t){KC_0, CH_SLSH};  // '/'
+        case KC_9: return (autoshift_codes_t){KC_9, KC_ENTER};
     };
     return (autoshift_codes_t){.unhandeled = true};
 }
@@ -144,8 +189,6 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
         if (shifted) {
             add_weak_mods(MOD_BIT(KC_LSFT));
         }
-        // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-        // register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode); COMPILE ERROR
         register_code16(keycode);
     } else {
         dprintf("  codes: normal=%08x shifted=%08x\n", codes.normal, codes.shifted);
@@ -157,10 +200,6 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
     dprintf("autoshift_release_user: keycode=%08x pressed=%d tap.count=%d tap.interrupted=%d\n", keycode, record->event.pressed, record->tap.count, record->tap.interrupted);
     const autoshift_codes_t codes = map_autshift_codes(keycode);
     if (codes.unhandeled) {
-        // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-        // The IS_RETRO check isn't really necessary here, always using
-        // keycode & 0xFF would be fine.
-        // unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode); COMPILE ERROR
         unregister_code16(keycode);
     } else {
         unregister_code16((!shifted) ? codes.normal : codes.shifted);
@@ -195,7 +234,7 @@ static const HSV PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
                   {14, 255, 255},  {14, 255, 255},  {105, 255, 255}, {105, 255, 255}, {0, 0, 255},     {105, 255, 255}, {33, 255, 255},  {105, 255, 255}, {105, 255, 255},
                   {105, 255, 255}, {105, 255, 255}, {15, 166, 195},  {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {33, 255, 255},  {33, 255, 255},  {255, 220, 201}},
 
-    [L_SYMBOLS] = {{HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
+    [L_SYM] = {{HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
                    {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
                    {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
                    {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},      {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF}, {HSV_OFF},      {HSV_OFF},
@@ -212,13 +251,14 @@ static const HSV PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
                {105, 255, 255}, {HSV_OFF},       {141, 255, 233}, {141, 255, 233}, {141, 255, 233}, {141, 255, 233}, {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {33, 255, 255}, {15, 166, 195},
                {HSV_OFF},       {HSV_OFF},       {105, 255, 255}, {HSV_OFF},       {HSV_OFF},       {255, 220, 201}},
 
+    [L_SETTINGS] = {{0}},
 };
 
 HSV get_layer_color(int layer) {
     switch (layer) {
         case L_COLEMAK_DH: return (HSV){43, 255, 255};
         case L_QWERTZ: return (HSV){43, 127, 255};
-        case L_SYMBOLS: return (HSV){23, 255, 255};
+        case L_SYM: return (HSV){23, 255, 255};
         case L_MOUSE: return (HSV){120, 255, 255};
         case L_NAV: return (HSV){43, 255, 127};
     }

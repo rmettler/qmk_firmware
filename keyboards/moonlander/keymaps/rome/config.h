@@ -21,7 +21,7 @@
 // #define AUTO_SHIFT_TIMEOUT_PER_KEY
 
 // Holding the key repeats shifted key. Tap and hold within TAPPING_TERM to repeat the normal key. Default: disabled
-#define AUTO_SHIFT_REPEAT
+// #define AUTO_SHIFT_REPEAT
 // #define AUTO_SHIFT_NO_AUTO_REPEAT
 
 // Fine grained control for AUTO_SHIFT_REPEAT together with get_auto_shift_repeat() and get_auto_shift_no_auto_repeat().
@@ -29,20 +29,22 @@
 // #define AUTO_SHIFT_NO_AUTO_REPEAT_PER_KEY
 
 // Enable auto shift for key press accopmanied by other modifiers (e.g. CTRL+A). Default: disabled
-// #define AUTO_SHIFT_MODIFIERS
+#define AUTO_SHIFT_MODIFIERS
 
 // Do not Auto Shift special keys, which include -_, =+, [{, ]}, ;:, ‘“, ,<, .>, and /?
-// #define NO_AUTO_SHIFT_SPECIAL
+#define NO_AUTO_SHIFT_SPECIAL
 
 // Do not Auto Shift numeric keys, zero through nine.
 #define NO_AUTO_SHIFT_NUMERIC
 
+#define NO_AUTO_SHIFT_ALPHA
+
 //*****************************************************************************
 //* Tap-Hold Configuration Options
 //*****************************************************************************
-
+// TODO: check config
 // Time after which a key press is regarded as a hold. Default: 200ms
-// #define TAPPING_TERM 200
+#define TAPPING_TERM 200
 
 // For more granulare control with get_tapping_term:
 // #define TAPPING_TERM_PER_KEY
@@ -77,4 +79,5 @@
 // #define RGB_MATRIX_LED_PROCESS_LIMIT 9  // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness) (Default: (DRIVER_LED_TOTAL + 4) / 5)
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 16   // limits in milliseconds how frequently an animation will update the LEDs. 16ms (default) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 
+// Layer TT()
 #define TAPPING_TOGGLE 1
