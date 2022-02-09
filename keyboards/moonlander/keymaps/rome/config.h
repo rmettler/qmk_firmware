@@ -74,7 +74,7 @@
 //*****************************************************************************
 // TODO
 //#undef RGB_DISABLE_TIMEOUT
-#define RGB_DISABLE_TIMEOUT 300000      // (5 min) number of milliseconds to wait until rgb automatically turns off (Default: 0)
+#define RGB_DISABLE_TIMEOUT 600000      // (10 min) number of milliseconds to wait until rgb automatically turns off (Default: 0)
 #define RGB_MATRIX_STARTUP_SPD 60       // sets the default animation speed, if none has been set (Default: 127)
 // #define RGB_MATRIX_LED_PROCESS_LIMIT 9  // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness) (Default: (DRIVER_LED_TOTAL + 4) / 5)
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 16   // limits in milliseconds how frequently an animation will update the LEDs. 16ms (default) is equivalent to limiting to 60fps (increases keyboard responsiveness)
