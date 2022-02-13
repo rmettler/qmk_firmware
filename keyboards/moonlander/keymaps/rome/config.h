@@ -44,9 +44,9 @@
 //*****************************************************************************
 // TODO: check config
 // Time after which a key press is regarded as a hold. Default: 200ms
-#define TAPPING_TERM 200
+#define TAPPING_TERM 300
 
-// For more granulare control with get_tapping_term:
+// For more granular control with get_tapping_term:
 // #define TAPPING_TERM_PER_KEY
 
 // Immediately select the hold action when another key is tapped (pressed and then released)
