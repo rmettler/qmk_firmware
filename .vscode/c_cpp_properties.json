@@ -87,6 +87,7 @@
             "defines": [
                 "AUDIO_DRIVER_DAC",
                 "AUDIO_ENABLE",
+                "AUTO_SHIFT_ENABLE",
                 "BOOTLOADER_STM32_DFU",
                 "BOOTMAGIC_LITE",
                 "COMMAND_ENABLE",

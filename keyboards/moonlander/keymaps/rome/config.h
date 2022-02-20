@@ -42,26 +42,26 @@
 //*****************************************************************************
 //* Tap-Hold Configuration Options
 //*****************************************************************************
-// TODO: check config
 // Time after which a key press is regarded as a hold. Default: 200ms
-#define TAPPING_TERM 300
-
-// For more granular control with get_tapping_term:
-// #define TAPPING_TERM_PER_KEY
+//#define TAPPING_TERM 300
+#define TAPPING_TERM_PER_KEY
 
 // Immediately select the hold action when another key is tapped (pressed and then released)
 // Can also affect Mod Tap (reduce delay or with IGNORE_MOD_TAP_INTERRUPT).
-#define PERMISSIVE_HOLD
+//#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD_PER_KEY
 
 // Immediately select the hold action when another key is pressed
 // Can also affect Mod Tap (reduce delay or with IGNORE_MOD_TAP_INTERRUPT).
 // #define HOLD_ON_OTHER_KEY_PRESS
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 // Mod Tap keys are no longer treated as a special case, and their behavior will match the behavior of other dual-role keys
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // Removes the ability to repeate the normal key after a hold after tap combination and activates the hold instead.
-// #define TAPPING_FORCE_HOLD
+//#define TAPPING_FORCE_HOLD
+#define TAPPING_FORCE_HOLD_PER_KEY
 
 // Releasing a hold key without another key pressed results in the normal key emitted instead of ignoring it.
 // #define RETRO_TAP
