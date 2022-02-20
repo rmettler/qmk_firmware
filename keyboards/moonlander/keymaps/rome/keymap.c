@@ -38,6 +38,7 @@ enum custom_keycodes
 enum layers
 {
     L_COLEMAK_DH = 0,
+    L_COLEMAK_DH2,
     L_QWERTZ,
     L_SYM,
     L_NUM,
@@ -75,6 +76,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_LWIN,         KC_LALT,                       RESET,           /**/  DEBUG,                          KC_LWIN,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
                                                                          CTL_T(KC_SPACE), LT(L_SYM, KC_TAB),TG(L_NUM),   /**/  TG(L_NAV),      KC_BSPACE,      SFT_T(KC_ENTER)
     ),
+    [L_COLEMAK_DH2] = LAYOUT_moonlander(
+        XXXXXXX,        KC_F1,          KC_F2,          KC_F3,           KC_F4,           KC_F5,        KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         KC_DELETE,
+        XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_QUES,        KC_BACKSPACE,
+        KC_ESC,         dh_a_ae,        KC_R,           KC_S,            KC_T,            KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           KC_N,            KC_E,            KC_I,           dh_o_oe,        CH_SCLN,
+        XXXXXXX,        CH_Z,           KC_X,           KC_C,            KC_D,            KC_V,                          /**/                  KC_K,           KC_H,            CH_COMM,         CH_DOT,         CH_MINS,        KC_RSFT,
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_LWIN,         KC_LALT,                       RESET,           /**/  DEBUG,                          KC_LWIN,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
+                                                                         CTL_T(KC_SPACE), LT(L_SYM, KC_TAB),DF(L_COLEMAK_DH),/**/TG(L_NAV),      KC_BSPACE,      SFT_T(KC_ENTER)
+    ),
     // TODO: add modifier (on thumb?) to toggle numbers with f keys
     // TOCO: maybe shift all columns one to the right (wasd on base position)
     [L_QWERTZ] = LAYOUT_moonlander(
@@ -106,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_NUM] = LAYOUT_moonlander(
         _______,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           XXXXXXX,      /**/  XXXXXXX,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           _______,
         _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/  DF(L_QWERTZ),   XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
-        _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,           _______,      /**/  _______,        XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
+        _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,           _______,      /**/  DF(L_COLEMAK_DH2),XXXXXXX,      KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
         _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        KC_LWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
                                                                         _______,        _______,        _______,      /**/  _______,        KC_DEL,         _______
@@ -155,28 +164,25 @@ typedef struct {
 
 static bool is_diahold(const uint16_t keycode) { return (keycode >= dh_a_ae && keycode <= dh_u_ue); }
 
-static bool is_primary_alpha(const uint16_t keycode) {
-    const uint16_t primary = keycode & 0xFF;
-    return (primary >= KC_A && primary <= KC_Z);
-}
+static bool is_alpha(const uint16_t keycode) { return (keycode >= KC_A && keycode <= KC_Z); }
 
-static bool is_primary_num(const uint16_t keycode) {
-    const uint16_t primary = keycode & 0xFF;
-    return (primary >= KC_1 && primary <= KC_0) || (primary >= KC_KP_1 && primary <= KC_KP_0);
-}
+static bool is_num(const uint16_t keycode) { return (keycode >= KC_1 && keycode <= KC_0) || (keycode >= KC_KP_1 && keycode <= KC_KP_0); }
 
-static bool is_primary_alphanum(const uint16_t keycode) { return is_primary_alpha(keycode) || is_primary_num(keycode); }
+static bool is_alphanum(const uint16_t keycode) { return is_alpha(keycode) || is_num(keycode); }
 
 static taphold_config_t map_taphold_config(const uint16_t keycode) {
     if (is_diahold(keycode)) {
         return (taphold_config_t){.tapping_term = 200, .repeat_primary = false, .decision_mode = taphold_decision_mode_time_only};
     }
-    if (is_primary_alphanum(keycode)) {
+    const uint16_t primary = keycode & 0xFF;
+    if (is_alphanum(primary)) {
         return (taphold_config_t){.tapping_term = 300, .repeat_primary = false, .decision_mode = taphold_decision_mode_other_key_tap};
     }
-    const uint16_t primary = keycode & 0xFF;
-    if (primary == KC_SPACE || primary == KC_ENTER) {
+    if (primary == KC_ENTER) {
         return (taphold_config_t){.tapping_term = 175, .repeat_primary = true, .decision_mode = taphold_decision_mode_other_key_press};
+    }
+    if (primary == KC_SPACE) {
+        return (taphold_config_t){.tapping_term = 150, .repeat_primary = true, .decision_mode = taphold_decision_mode_other_key_tap};
     }
     if (primary == KC_TAB) {
         return (taphold_config_t){.tapping_term = 150, .repeat_primary = false, .decision_mode = taphold_decision_mode_other_key_press};
@@ -360,24 +366,12 @@ static const HSV PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
     [L_SETTINGS] = {{0}},
 };
 
-HSV get_layer_color(int layer) {
-    switch (layer) {
-        case L_COLEMAK_DH: return (HSV){43, 255, 255};
-        case L_QWERTZ: return (HSV){43, 127, 255};
-        case L_SYM: return (HSV){23, 255, 255};
-        case L_MOUSE: return (HSV){120, 255, 255};
-        case L_NAV: return (HSV){43, 255, 127};
-    }
-    return (HSV){HSV_OFF};
-}
+static bool hsv_eq(const HSV l, const HSV r) { return l.h == r.h && l.s == r.s && l.v == r.v; }
 
 void set_layer_color(int layer) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        HSV hsv = ledmap[layer][i];
-        if (!hsv.h && !hsv.s && !hsv.v) {
-            // HSV color = get_layer_color(layer);
-            // rgb_matrix_set_color(i, color.h, color.s, color.v);
-        } else {
+        HSV hsv = ledmap[1][i];
+        if (!hsv_eq(hsv, (HSV){HSV_OFF})) {
             // hsv.v   = (uint32_t)hsv.v * rgb_matrix_get_val() / 255U;  // TODO only do this with a global dim level so that it can be adjusted seperately
             RGB rgb = hsv_to_rgb(hsv);
             // float f   = (float)rgb_matrix_get_val() / 255.f;  TODO
