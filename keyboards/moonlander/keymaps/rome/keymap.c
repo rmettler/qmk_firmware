@@ -68,7 +68,7 @@ enum layers
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_COLEMAK_DH] = LAYOUT_moonlander(
-        XXXXXXX,        KC_F1,          KC_F2,          KC_F3,           KC_F4,          KC_F5,         KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         KC_DELETE,
+        XXXXXXX,        KC_F1,          KC_F2,          KC_F3,           KC_F4,           KC_F5,        KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         KC_DELETE,
         XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_QUES,        KC_BACKSPACE,
         KC_ESC,         dh_a_ae,        ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T), KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    dh_o_oe,        CH_SCLN,
         XXXXXXX,        CH_Z,           KC_X,           KC_C,            WIN_T(KC_D),     KC_V,                          /**/                  KC_K,           WIN_T(KC_H),     CH_COMM,         CH_DOT,         CH_MINS,        KC_RSFT,
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 typedef enum
 {
-    taphold_decision_mode_time,
+    taphold_decision_mode_time_only,
     taphold_decision_mode_other_key_tap,
     taphold_decision_mode_other_key_press
 } taphold_decision_mode;
@@ -153,15 +153,59 @@ typedef struct {
     taphold_decision_mode decision_mode;
 } taphold_config_t;
 
-static taphold_config_t map_taphold_config(const uint16_t keycode) { return (taphold_config_t){.tapping_term = 300, .repeat_primary = true, .decision_mode = taphold_decision_mode_other_key_tap}; }
+static bool is_diahold(const uint16_t keycode) { return (keycode >= dh_a_ae && keycode <= dh_u_ue); }
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { return map_taphold_config(keycode).tapping_term; }
+static bool is_primary_alpha(const uint16_t keycode) {
+    const uint16_t primary = keycode & 0xFF;
+    return (primary >= KC_A && primary <= KC_Z);
+}
 
-bool get_tapping_force_hold(const uint16_t keycode, keyrecord_t *const record) { return !map_taphold_config(keycode).repeat_primary; }
+static bool is_primary_num(const uint16_t keycode) {
+    const uint16_t primary = keycode & 0xFF;
+    return (primary >= KC_1 && primary <= KC_0) || (primary >= KC_KP_1 && primary <= KC_KP_0);
+}
 
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) { return map_taphold_config(keycode).decision_mode == taphold_decision_mode_other_key_tap; }
+static bool is_primary_alphanum(const uint16_t keycode) { return is_primary_alpha(keycode) || is_primary_num(keycode); }
 
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) { return map_taphold_config(keycode).decision_mode == taphold_decision_mode_other_key_press; }
+static taphold_config_t map_taphold_config(const uint16_t keycode) {
+    if (is_diahold(keycode)) {
+        return (taphold_config_t){.tapping_term = 200, .repeat_primary = false, .decision_mode = taphold_decision_mode_time_only};
+    }
+    if (is_primary_alphanum(keycode)) {
+        return (taphold_config_t){.tapping_term = 300, .repeat_primary = false, .decision_mode = taphold_decision_mode_other_key_tap};
+    }
+    const uint16_t primary = keycode & 0xFF;
+    if (primary == KC_SPACE || primary == KC_ENTER) {
+        return (taphold_config_t){.tapping_term = 175, .repeat_primary = true, .decision_mode = taphold_decision_mode_other_key_press};
+    }
+    if (primary == KC_TAB) {
+        return (taphold_config_t){.tapping_term = 150, .repeat_primary = false, .decision_mode = taphold_decision_mode_other_key_press};
+    }
+    return (taphold_config_t){.tapping_term = 500, .repeat_primary = false, .decision_mode = taphold_decision_mode_time_only};
+}
+
+uint16_t get_tapping_term(const uint16_t keycode, keyrecord_t *const record) {
+    const taphold_config_t config = map_taphold_config(keycode);
+    return config.tapping_term;
+}
+
+bool get_tapping_force_hold(const uint16_t keycode, keyrecord_t *const record) {
+    const taphold_config_t config = map_taphold_config(keycode);
+    dprintf("get_tapping_force_hold %d\n", !config.repeat_primary);
+    return !config.repeat_primary;
+}
+
+bool get_permissive_hold(const uint16_t keycode, keyrecord_t *const record) {
+    const taphold_config_t config = map_taphold_config(keycode);
+    dprintf("get_permissive_hold %d\n", config.decision_mode);
+    return config.decision_mode == taphold_decision_mode_other_key_tap || config.decision_mode == taphold_decision_mode_other_key_press;
+}
+
+bool get_hold_on_other_key_press(const uint16_t keycode, keyrecord_t *const record) {
+    const taphold_config_t config = map_taphold_config(keycode);
+    dprintf("get_hold_on_other_key_press %d\n", config.decision_mode);
+    return config.decision_mode == taphold_decision_mode_other_key_press;
+}
 
 static diahold_config_t map_diahold(const uint16_t keycode) {
     switch (keycode) {
