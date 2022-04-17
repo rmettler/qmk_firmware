@@ -74,40 +74,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(L_MOUSE),    KC_Q,           KC_W,           KC_F,            KC_P,               KC_B,       /**/ KC_J,            KC_L,            dh_u_ue,         CH_Y,           CH_MINS,        mm_quotes,
         KC_ESC,         dh_a_ae,        ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T),    KC_G,       /**/ KC_M,            LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    dh_o_oe,        KC_BSPC,
         KC_LSFT,        CH_Z,           KC_X,           KC_C,            WIN_T(KC_D),        KC_V,       /**/ KC_K,            WIN_T(KC_H),     CH_COMM,         mm_quest_bang,  CH_DOT,         KC_RSFT,
-        TG(L_NUM),      XXXXXXX,        XXXXXXX,        XXXXXXX,         LT(L_SYM, KC_TAB),  CTL_T(KC_SPACE), CTL_T(KC_SPACE), SFT_T(KC_ENTER), KC_BSPC,         XXXXXXX,        TG(L_SETTINGS), TG(L_NAV)
+        TG(L_NUM),      XXXXXXX,        XXXXXXX,        XXXXXXX,         LT(L_SYM, KC_TAB),  CTL_T(KC_SPACE), CTL_T(KC_SPACE), SFT_T(KC_ENTER), XXXXXXX,         XXXXXXX,        XXXXXXX,        TG(L_NAV)
     ),
     [L_SYM] = LAYOUT_planck_grid(
         XXXXXXX,        CH_DEG,         CH_TILD,        CH_CIRC,         CH_PERC,            XXXXXXX,    /**/ XXXXXXX,         CH_AMPR,         CH_LSBR,         CH_RSBR,        CH_PIPE,        _______,
         KC_F2,          KC_KP_PLUS,     CH_MINS,        CH_ASTR,         CH_SLSH,            CH_HASH,    /**/ CH_QUOT,         CH_EQL,          mm_lbrackets,    mm_rbrackets,   CH_LCBR,        KC_DEL,
         KC_F5,          CH_AT,          CH_EURO,        CH_DLR,          CH_BSLS,            CH_GRV,     /**/ CH_ACUT,         CH_DQUO,         CH_LABR,         CH_RABR,        CH_RCBR,        _______,
-        XXXXXXX,        _______,        _______,        _______,         _______,            _______,         _______,         _______,         _______,         _______,        _______,        _______
+        XXXXXXX,        _______,        _______,        TO(L_COLEMAK_DH),_______,            _______,         _______,         _______,         _______,         _______,        TG(L_SETTINGS), _______
     ),
     // TODO: add key to make layer toggled (TG doesn't work, because already in layer. maybe add another layer)
     [L_NUM] = LAYOUT_planck_grid(
         XXXXXXX,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,            /**/ XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,            /**/ XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        KC_DEL,
         _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),         /**/ XXXXXXX,        KC_LWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
-        _______,        C(CH_Y),        _______,        _______,        _______,        _______,         /**/ _______,        _______,        _______,        _______,        XXXXXXX,        XXXXXXX
+        _______,        C(CH_Y),        _______,        TO(L_COLEMAK_DH),_______,       _______,         /**/ _______,        _______,        _______,        _______,        XXXXXXX,        XXXXXXX
     ),
     // TODO: add LEDs for num lock and caps lock
     // TODO: add layer toggle to mouse layer
     [L_NAV] = LAYOUT_planck_grid(
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        /**/  KC_PSCREEN,     KC_INSERT,      KC_UP,          XXXXXXX,        XXXXXXX,        _______,
-        KC_ESC,         KC_LALT,        KC_LSHIFT,      _______,        KC_BSPACE,      KC_DEL,         /**/  KC_WWW_BACK,    KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_WWW_FORWARD, KC_DEL,
-        XXXXXXX,        C(CH_Z),        XXXXXXX,        XXXXXXX,        WIN_T(KC_ENTER),XXXXXXX,        /**/  KC_BRK,         KC_HOME,        KC_END,         KC_PGUP,        KC_PGDOWN,      XXXXXXX,
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,        /**/  _______,        _______,        _______,        _______,        XXXXXXX,        _______
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,         XXXXXXX,        XXXXXXX,        /**/  KC_PSCREEN,     KC_INSERT,      KC_UP,          XXXXXXX,        XXXXXXX,        _______,
+        KC_ESC,         KC_LALT,        KC_LSHIFT,      _______,         KC_BSPACE,      KC_DEL,         /**/  KC_WWW_BACK,    KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_WWW_FORWARD, KC_DEL,
+        XXXXXXX,        C(CH_Z),        XXXXXXX,        XXXXXXX,         WIN_T(KC_ENTER),XXXXXXX,        /**/  KC_BRK,         KC_HOME,        KC_END,         KC_PGUP,        KC_PGDOWN,      XXXXXXX,
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        TO(L_COLEMAK_DH),_______,        _______,        /**/  _______,        _______,        _______,        _______,        XXXXXXX,        _______
     ),
     [L_MOUSE] = LAYOUT_planck_grid(
         _______,        _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        /**/  XXXXXXX,        KC_WH_U,        KC_MS_UP,       KC_WH_D,        XXXXXXX,        _______,
         _______,        XXXXXXX,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     XXXXXXX,        /**/  XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_ACCEL0,   _______,
         _______,        _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        /**/  KC_CALCULATOR,  XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_MS_ACCEL1,   _______,
-        XXXXXXX,        _______,        _______,        _______,        _______,        _______,        /**/  _______,        _______,        _______,        _______,        XXXXXXX,        XXXXXXX
+        XXXXXXX,        _______,        _______,        TO(L_COLEMAK_DH),_______,        _______,        /**/  _______,        _______,        _______,        _______,        XXXXXXX,        XXXXXXX
     ),
     [L_SETTINGS] = LAYOUT_planck_grid(
-        KC_MEDIA_STOP,KC_MEDIA_PLAY_PAUSE,KC_MS_BTN1,   KC_MS_UP,       KC_MS_BTN2,     _______,        /**/  XXXXXXX,        RGB_TOG,        RGB_MOD,        RGB_RMOD,       RGB_M_SW,       RESET,
-        KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_MS_LEFT, KC_MS_DOWN,     KC_MS_RIGHT,    _______,        /**/  XXXXXXX,        RGB_HUI,        RGB_SAI,        RGB_VAI,        RGB_SPI,        _______,
-        KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,XXXXXXX,      XXXXXXX,        XXXXXXX,        _______,        /**/  XXXXXXX,        RGB_HUD,        RGB_SAD,        RGB_VAD,        RGB_SPD,        _______,
-        XXXXXXX,        _______,        KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   _______,        /**/  WEBUSB_PAIR,    RGB_M_P,        RGB_M_B,        RGB_M_R,        _______,        XXXXXXX
+        KC_MEDIA_STOP,KC_MEDIA_PLAY_PAUSE,KC_MS_BTN1,   KC_MS_UP,        KC_MS_BTN2,     _______,        /**/  XXXXXXX,        RGB_TOG,        RGB_MOD,        RGB_RMOD,       RGB_M_SW,       RESET,
+        KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_MS_LEFT, KC_MS_DOWN,      KC_MS_RIGHT,    _______,        /**/  XXXXXXX,        RGB_HUI,        RGB_SAI,        RGB_VAI,        RGB_SPI,        _______,
+        KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,XXXXXXX,      XXXXXXX,         XXXXXXX,        _______,        /**/  XXXXXXX,        RGB_HUD,        RGB_SAD,        RGB_VAD,        RGB_SPD,        _______,
+        XXXXXXX,        _______,          _______,      TO(L_COLEMAK_DH),_______,        _______,        /**/  WEBUSB_PAIR,    RGB_M_P,        RGB_M_B,        RGB_M_R,        _______,        XXXXXXX
     ),
 };
 // clang-format on

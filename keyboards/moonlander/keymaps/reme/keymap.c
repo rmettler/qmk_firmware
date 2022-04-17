@@ -33,7 +33,6 @@ enum custom_keycodes
     mm_rbrackets,
     mm_quest_bang,
     mm_quotes,
-    M_QUEST_BANG,
     M_LED_RESET,
     M_ITER_LED
 };
@@ -41,7 +40,6 @@ enum custom_keycodes
 enum layers
 {
     L_COLEMAK_DH = 0,
-    L_COLEMAK_DH2,
     L_QWERTZ,
     L_SYM,
     L_NUM,
@@ -73,19 +71,11 @@ enum layers
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_COLEMAK_DH] = LAYOUT_moonlander(
         XXXXXXX,        KC_F1,          KC_F2,          KC_F3,           KC_F4,           KC_F5,        KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         XXXXXXX,
-        TG(L_MOUSE),    KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_MINS,        TG(L_SETTINGS),
-        KC_ESC,         dh_a_ae,        ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T), KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    dh_o_oe,        mm_quotes,
-        KC_LSFT,        CH_Z,           KC_X,           KC_C,            WIN_T(KC_D),     KC_V,                          /**/                  KC_K,           WIN_T(KC_H),     CH_COMM,         CH_DOT,         mm_quest_bang,  KC_RSFT,
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,         KC_LALT,                       XXXXXXX,         /**/  XXXXXXX,                        XXXXXXX,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
-                                                                         CTL_T(KC_SPACE), LT(L_SYM, KC_TAB),TG(L_NUM),   /**/  TG(L_NAV),      KC_BSPACE,      SFT_T(KC_ENTER)
-    ),
-    [L_COLEMAK_DH2] = LAYOUT_moonlander(
-        XXXXXXX,        KC_F1,          KC_F2,          KC_F3,           KC_F4,           KC_F5,        KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         KC_DELETE,
-        XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_MINS,        KC_BACKSPACE,
-        KC_ESC,         dh_a_ae,        KC_R,           KC_S,            KC_T,            KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           KC_N,            KC_E,            KC_I,           dh_o_oe,        CH_SCLN,
-        XXXXXXX,        CH_Z,           KC_X,           KC_C,            KC_D,            KC_V,                          /**/                  KC_K,           KC_H,            CH_COMM,         CH_DOT,         CH_QUES,        KC_RSFT,
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_LWIN,         KC_LALT,                       RESET,           /**/  DEBUG,                          KC_LWIN,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
-                                                                         CTL_T(KC_SPACE), LT(L_SYM, KC_TAB),DF(L_COLEMAK_DH),/**/TG(L_NAV),      KC_BSPACE,      SFT_T(KC_ENTER)
+        XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_MINS,        mm_quotes,
+        KC_ESC,         dh_a_ae,        ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T), KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    dh_o_oe,        KC_BACKSPACE,
+        KC_LSFT,        CH_Z,           KC_X,           KC_C,            WIN_T(KC_D),     KC_V,                          /**/                  KC_K,           WIN_T(KC_H),     CH_COMM,         CH_DOT,         mm_quest_bang,  XXXXXXX,
+        XXXXXXX,        TG(L_QWERTZ),   XXXXXXX,        XXXXXXX,         TG(L_MOUSE),                   XXXXXXX,         /**/  XXXXXXX,                        XXXXXXX,         XXXXXXX,         XXXXXXX,        RESET,        XXXXXXX,
+                                                                         CTL_T(KC_SPACE), LT(L_SYM, KC_TAB), XXXXXXX,    /**/  TG(L_SETTINGS), KC_BSPACE,      SFT_T(KC_ENTER)
     ),
     // TODO: add modifier (on thumb?) to toggle numbers with f keys
     // TOCO: maybe shift all columns one to the right (wasd on base position)
@@ -95,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SCRL,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           XXXXXXX,         /**/  XXXXXXX,        KC_H,           KC_J,           KC_K,           KC_L,           CH_ODIA,        KC_ENTER,
         KC_LSFT,        CH_Z,           KC_X,           KC_C,           KC_V,           KC_B,                            /**/                  KC_N,           KC_M,           CH_COMM,        CH_DOT,         CH_MINS,        KC_RSFT,
         KC_LCTL,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        XXXXXXX,         /**/  XXXXXXX,                        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_RCTL,
-                                                                        KC_SPACE,       KC_LALT,        DF(L_COLEMAK_DH),/**/  XXXXXXX,        XXXXXXX,        XXXXXXX
+                                                                        KC_SPACE,       KC_LALT,        TO(L_COLEMAK_DH),/**/  XXXXXXX,        XXXXXXX,        XXXXXXX
     ),
     // TODO: as non dead key: grave `, circ ^, tild ~
     // TODO: add double angle brackets to shifted version of <, >
@@ -109,45 +99,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_SYM] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
         _______,        CH_DEG,         CH_TILD,        CH_CIRC,        CH_PERC,        XXXXXXX,        _______,      /**/  _______,        XXXXXXX,        CH_AMPR,        CH_LSBR,        CH_RSBR,        CH_PIPE,        _______,
-        _______,        KC_KP_PLUS,     CH_MINS,        CH_ASTR,        CH_SLSH,        CH_HASH,        _______,      /**/  _______,        CH_QUOT,        CH_EQL,         mm_lbrackets,   mm_rbrackets,   CH_EXLM,        CH_SCLN,
+        _______,        KC_KP_PLUS,     CH_MINS,        CH_ASTR,        CH_SLSH,        CH_HASH,        _______,      /**/  _______,        CH_QUOT,        CH_EQL,         mm_lbrackets,   mm_rbrackets,   CH_EXLM,        KC_DEL,
         _______,        CH_AT,          CH_EURO,        CH_DLR,         CH_BSLS,        CH_GRV,                       /**/                  CH_ACUT,        CH_DQUO,        CH_LABR,        CH_RABR,        CH_UNDS,        _______,
         _______,        _______,        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        _______,        _______,        _______,      /**/  _______,        _______,        _______
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       KC_DEL,        _______
     ),
     // TODO: add key to make layer toggled (TG doesn't work, because already in layer. maybe add another layer)
     [L_NUM] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        XXXXXXX,      /**/  XXXXXXX,        _______,        _______,        _______,        _______,        _______,        _______,
-        _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/  DF(L_QWERTZ),   XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
-        _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,           _______,      /**/  DF(L_COLEMAK_DH2),XXXXXXX,      KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
+        _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/  XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
+        _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,           _______,      /**/  XXXXXXX,        XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        KC_DEL,
         _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        KC_LWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        _______,        _______,        _______,      /**/  _______,        KC_DEL,         _______
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,        KC_DEL,         _______
     ),
     // TODO: add LEDs for num lock and caps lock
     // TODO: add layer toggle to mouse layer
     [L_NAV] = LAYOUT_moonlander(
         _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,        /**/  KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         _______,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,      /**/  KC_NUM_LOCK,    KC_PSCREEN,     KC_INSERT,      KC_UP,          XXXXXXX,        XXXXXXX,        _______,
-        KC_ESC,         KC_LALT,        KC_LSHIFT,      _______,        KC_BSPACE,      KC_DEL,         _______,      /**/  KC_CAPS_LOCK,   KC_WWW_BACK,    KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_WWW_FORWARD, CH_COLN,
+        KC_ESC,         KC_LALT,        KC_LSHIFT,      _______,        KC_BSPACE,      KC_DEL,         _______,      /**/  KC_CAPS_LOCK,   KC_WWW_BACK,    KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_WWW_FORWARD, KC_DEL,
         XXXXXXX,        C(CH_Z),        XXXXXXX,        XXXXXXX,        WIN_T(KC_ENTER),XXXXXXX,                      /**/                  KC_BRK,         KC_HOME,        KC_END,         KC_PGUP,        KC_PGDOWN,      _______,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        _______,        _______,        _______,      /**/  _______,        KC_DEL,         _______
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,        KC_DEL,         _______
     ),
     [L_MOUSE] = LAYOUT_moonlander(
-        _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   _______,        _______,
         _______,        _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,      /**/  _______,        XXXXXXX,        KC_WH_U,        KC_MS_UP,       KC_WH_D,        XXXXXXX,        _______,
-        _______,        XXXXXXX,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     XXXXXXX,        _______,      /**/  _______,        XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_ACCEL0,   _______,
-        _______,        _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,                      /**/                  XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_MS_ACCEL1,   _______,
-        _______,        _______,        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        _______,        _______,        _______,      /**/  _______,        _______,        _______
+        _______,        XXXXXXX,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     XXXXXXX,        _______,      /**/  _______,        XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    _______,        KC_DEL,
+        _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,
+        _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       KC_DEL,         _______
     ),
     [L_SETTINGS] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        M_LED_RESET,    M_ITER_LED,   /**/  _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,        _______,
-        KC_MEDIA_STOP,KC_MEDIA_PLAY_PAUSE,KC_MS_BTN1,   KC_MS_UP,       KC_MS_BTN2,     _______,        _______,      /**/  _______,        XXXXXXX,        RGB_TOG,        RGB_MOD,        RGB_RMOD,       XXXXXXX,        _______,
-        KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_MS_LEFT, KC_MS_DOWN,     KC_MS_RIGHT,    _______,        _______,      /**/  _______,        XXXXXXX,        RGB_HUI,        RGB_SAI,        RGB_VAI,        RGB_SPI,        _______,
-        KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,XXXXXXX,      XXXXXXX,        XXXXXXX,        _______,                      /**/                  KC_CALCULATOR,  RGB_HUD,        RGB_SAD,        RGB_VAD,        RGB_SPD,        _______,
-        _______,        _______,        KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,                   _______,      /**/  WEBUSB_PAIR,                    RGB_M_P,        RGB_M_B,        RGB_M_R,        RGB_M_SW,       _______,
-                                                                        _______,        _______,        _______,      /**/  _______,        _______,        _______
+        _______,    KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,  _______,        _______,        _______,        _______,      /**/  _______,        XXXXXXX,        RGB_TOG,        RGB_MOD,        RGB_RMOD,       XXXXXXX,        _______,
+        _______,    KC_BRIGHTNESS_UP,KC_BRIGHTNESS_DOWN,_______,        _______,        _______,        _______,      /**/  _______,        XXXXXXX,        RGB_HUI,        RGB_SAI,        RGB_VAI,        RGB_SPI,        _______,
+        _______,        _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,                      /**/                  XXXXXXX,        RGB_HUD,        RGB_SAD,        RGB_VAD,        RGB_SPD,        _______,
+        _______,        _______,        _______,        _______,        _______,                        _______,      /**/  WEBUSB_PAIR,                    RGB_M_P,        RGB_M_B,        RGB_M_R,        RGB_M_SW,       _______,
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,        _______,        _______
     ),
 };
 // clang-format on
@@ -246,9 +236,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     dprint_keycode_event("get_custom_auto_shifted_key", keycode, record);
     switch (keycode) {
-        case M_QUEST_BANG:
-            // case KC_A:
-            return true;
         case KC_2 ... KC_3:
         case KC_5 ... KC_6:
         case KC_9 ... KC_0:
@@ -266,7 +253,6 @@ typedef struct {
 
 autoshift_codes_t map_autshift_codes(const uint16_t keycode) {
     switch (keycode) {
-        case M_QUEST_BANG: return (autoshift_codes_t){CH_QUES, CH_EXLM};
         case KC_6: return (autoshift_codes_t){KC_6, CH_LRBR};      // '('
         case KC_5: return (autoshift_codes_t){KC_5, CH_RRBR};      // ')'
         case KC_3: return (autoshift_codes_t){KC_3, CH_PLUS};      // '+'
