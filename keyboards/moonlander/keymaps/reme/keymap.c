@@ -71,11 +71,11 @@ enum layers
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_COLEMAK_DH] = LAYOUT_moonlander(
         XXXXXXX,        KC_F1,          KC_F2,          KC_F3,           KC_F4,           KC_F5,        KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         XXXXXXX,
-        XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_MINS,        mm_quotes,
-        KC_ESC,         dh_a_ae,        ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T), KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    dh_o_oe,        KC_BACKSPACE,
-        KC_LSFT,        CH_Z,           KC_X,           KC_C,            WIN_T(KC_D),     KC_V,                          /**/                  KC_K,           WIN_T(KC_H),     CH_COMM,         CH_DOT,         mm_quest_bang,  XXXXXXX,
-        XXXXXXX,        TG(L_QWERTZ),   XXXXXXX,        XXXXXXX,         TG(L_MOUSE),                   XXXXXXX,         /**/  XXXXXXX,                        XXXXXXX,         XXXXXXX,         XXXXXXX,        RESET,        XXXXXXX,
-                                                                         CTL_T(KC_SPACE), LT(L_SYM, KC_TAB), XXXXXXX,    /**/  TG(L_SETTINGS), KC_BSPACE,      SFT_T(KC_ENTER)
+        XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            KC_U,            CH_Y,           CH_MINS,        mm_quotes,
+        KC_ESC,         KC_A,           ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T), KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    KC_O,           KC_BACKSPACE,
+        KC_LSFT,        CH_Z,           KC_X,           KC_C,            KC_D,            KC_V,                          /**/                  KC_K,           KC_H,            CH_COMM,         CH_DOT,         mm_quest_bang,  CH_DIAE,
+        XXXXXXX,        TG(L_QWERTZ),   XXXXXXX,        XXXXXXX,         TG(L_MOUSE),                   XXXXXXX,         /**/  XXXXXXX,                        KC_RGUI,         XXXXXXX,         XXXXXXX,        RESET,          XXXXXXX,
+                                                                         CTL_T(KC_SPACE), LT(L_SYM, KC_TAB), XXXXXXX,    /**/  TG(L_SETTINGS), KC_BACKSPACE,   SFT_T(KC_ENTER)
     ),
     // TODO: add modifier (on thumb?) to toggle numbers with f keys
     // TOCO: maybe shift all columns one to the right (wasd on base position)
@@ -99,10 +99,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_SYM] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
         _______,        CH_DEG,         CH_TILD,        CH_CIRC,        CH_PERC,        XXXXXXX,        _______,      /**/  _______,        XXXXXXX,        CH_AMPR,        CH_LSBR,        CH_RSBR,        CH_PIPE,        _______,
-        _______,        KC_KP_PLUS,     CH_MINS,        CH_ASTR,        CH_SLSH,        CH_HASH,        _______,      /**/  _______,        CH_QUOT,        CH_EQL,         mm_lbrackets,   mm_rbrackets,   CH_EXLM,        KC_DEL,
-        _______,        CH_AT,          CH_EURO,        CH_DLR,         CH_BSLS,        CH_GRV,                       /**/                  CH_ACUT,        CH_DQUO,        CH_LABR,        CH_RABR,        CH_UNDS,        _______,
+        _______,        KC_KP_PLUS,     CH_MINS,        CH_ASTR,        CH_SLSH,        CH_HASH,        _______,      /**/  _______,        CH_QUOT,        CH_EQL,         CH_LRBR,        CH_RRBR,        CH_LCBR,        KC_DEL,
+        _______,        CH_AT,          CH_EURO,        CH_DLR,         CH_BSLS,        CH_GRV,                       /**/                  CH_ACUT,        CH_DQUO,        CH_LABR,        CH_RABR,        CH_RCBR,        _______,
         _______,        _______,        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       KC_DEL,        _______
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       _______,        _______
     ),
     // TODO: add key to make layer toggled (TG doesn't work, because already in layer. maybe add another layer)
     [L_NUM] = LAYOUT_moonlander(
@@ -111,17 +111,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,           _______,      /**/  XXXXXXX,        XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        KC_DEL,
         _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        KC_LWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,        KC_DEL,         _______
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       _______,      _______
     ),
     // TODO: add LEDs for num lock and caps lock
     // TODO: add layer toggle to mouse layer
     [L_NAV] = LAYOUT_moonlander(
         _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,        /**/  KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         _______,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,      /**/  KC_NUM_LOCK,    KC_PSCREEN,     KC_INSERT,      KC_UP,          XXXXXXX,        XXXXXXX,        _______,
-        KC_ESC,         KC_LALT,        KC_LSHIFT,      _______,        KC_BSPACE,      KC_DEL,         _______,      /**/  KC_CAPS_LOCK,   KC_WWW_BACK,    KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_WWW_FORWARD, KC_DEL,
+        KC_ESC,         KC_LALT,        KC_LSFT,        _______,        KC_BSPACE,      KC_DEL,         _______,      /**/  KC_CAPS_LOCK,   KC_WWW_BACK,    KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_WWW_FORWARD, KC_DEL,
         XXXXXXX,        C(CH_Z),        XXXXXXX,        XXXXXXX,        WIN_T(KC_ENTER),XXXXXXX,                      /**/                  KC_BRK,         KC_HOME,        KC_END,         KC_PGUP,        KC_PGDOWN,      _______,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,        KC_DEL,         _______
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       _______,        _______
     ),
     [L_MOUSE] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   _______,        _______,
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,        XXXXXXX,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     XXXXXXX,        _______,      /**/  _______,        XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    _______,        KC_DEL,
         _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,
         _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       KC_DEL,         _______
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       _______,        _______
     ),
     [L_SETTINGS] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        M_LED_RESET,    M_ITER_LED,   /**/  _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,        _______,
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    KC_BRIGHTNESS_UP,KC_BRIGHTNESS_DOWN,_______,        _______,        _______,        _______,      /**/  _______,        XXXXXXX,        RGB_HUI,        RGB_SAI,        RGB_VAI,        RGB_SPI,        _______,
         _______,        _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,                      /**/                  XXXXXXX,        RGB_HUD,        RGB_SAD,        RGB_VAD,        RGB_SPD,        _______,
         _______,        _______,        _______,        _______,        _______,                        _______,      /**/  WEBUSB_PAIR,                    RGB_M_P,        RGB_M_B,        RGB_M_R,        RGB_M_SW,       _______,
-                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,        _______,        _______
+                                                                        _______,        _______,        TO(L_COLEMAK_DH),/**/_______,        _______,       _______
     ),
 };
 // clang-format on
@@ -188,8 +188,6 @@ typedef struct {
 static mod_morph_config_t map_mod_morph(uint16_t keycode) {
     switch (keycode) {
         case mm_bspace_del: return (mod_morph_config_t){MOD_BIT(KC_LALT), KC_BSPACE, KC_DEL};
-        case mm_lbrackets: return (mod_morph_config_t){MOD_BIT(KC_LSHIFT), CH_LRBR, CH_LCBR};
-        case mm_rbrackets: return (mod_morph_config_t){MOD_BIT(KC_LSHIFT), CH_RRBR, CH_RCBR};
         case mm_quotes: return (mod_morph_config_t){MOD_BIT(KC_LSHIFT), CH_QUOT, CH_DQUO};
         case mm_quest_bang: return (mod_morph_config_t){MOD_BIT(KC_LSHIFT), CH_QUES, CH_EXLM};
     }
