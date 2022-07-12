@@ -73,10 +73,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_COLEMAK_DH] = LAYOUT_moonlander(
         TG(L_SETTINGS), KC_F1,          KC_F2,          KC_F3,           KC_F4,           KC_F5,        KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         XXXXXXX,
         XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            KC_U,            CH_Y,           CH_MINS,        XXXXXXX,
-        KC_ESC,         KC_A,          LT(L_MOUSE,KC_R),LT(L_NAV, KC_S),  KC_T,           KC_G,       KC_AUDIO_VOL_DOWN, /**/  KC_PSCREEN,     KC_M,           KC_N,            LT(L_NUM, KC_E), KC_I,           KC_O,           mm_quotes,
-        KC_LSFT,        CH_Z,           KC_X,           KC_C,            KC_D,            KC_V,                          /**/                  KC_K,           KC_H,            CH_COMM,         CH_DOT,         mm_quest_bang,  OSM(KC_LALT),
+        KC_ESC,         KC_A,          LT(L_MOUSE,KC_R),LT(L_NAV, KC_S),  KC_T,           KC_G,       KC_AUDIO_VOL_DOWN, /**/  KC_PSCREEN,     KC_M,           LT(L_SYM, KC_N),            LT(L_NUM, KC_E), KC_I,           KC_O,           mm_quotes,
+        KC_LCTL,        CH_Z,           KC_X,           KC_C,            KC_D,            KC_V,                          /**/                  KC_K,           KC_H,            CH_COMM,         CH_DOT,         mm_quest_bang,  KC_LALT,
         XXXXXXX,        TG(L_QWERTZ),   XXXXXXX,        XXXXXXX,         TG(L_MOUSE),                   XXXXXXX,         /**/  XXXXXXX,                        KC_LGUI,         XXXXXXX,         XXXXXXX,        RESET,          XXXXXXX,
-                                                                         CTL_T(KC_SPACE), LT(L_SYM, KC_TAB), TO(L_NUM),  /**/  XXXXXXX,        KC_BACKSPACE,   SFT_T(KC_ENTER)
+                                                                         SFT_T(KC_SPACE), LT(L_SYM, KC_TAB), TO(L_NUM),  /**/  XXXXXXX,        KC_BACKSPACE,   SFT_T(KC_ENTER)
     ),
     // TODO: add modifier (on thumb?) to toggle numbers with f keys
     // TOCO: maybe shift all columns one to the right (wasd on base position)
@@ -109,8 +109,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_NUM] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        XXXXXXX,      /**/  XXXXXXX,        _______,        _______,        _______,        _______,        _______,        _______,
         _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/  XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
-        _______,        KC_3,           KC_2,           KC_1,           KC_0,           KC_9,           _______,      /**/  XXXXXXX,        XXXXXXX,        OSM(KC_LCTL),   _______,        OSM(KC_LSFT),   OSM(KC_LALT),   _______,
-        _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        OSM(KC_LWIN),   XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
+        _______,        KC_3,           KC_2,           KC_1,           KC_0,           KC_9,           _______,      /**/  XXXXXXX,        XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
+        _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        KC_LGUI,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
                                                                         _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       _______,      _______
     ),
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_NAV] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,      /**/  KC_NUM_LOCK,    XXXXXXX,        KC_PGUP,        KC_UP,          KC_PGDOWN,      XXXXXXX,        _______,
-        _______,        OSM(KC_LALT),   OSM(KC_LSFT),   _______,        KC_BSPACE,      KC_DEL,         _______,      /**/  KC_CAPS_LOCK,   KC_HOME,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_END,         _______,
+        _______,        KC_LALT,        KC_LSFT,        _______,        KC_BSPACE,      KC_DEL,         _______,      /**/  KC_CAPS_LOCK,   KC_HOME,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_END,         _______,
         _______,        C(CH_Z),        XXXXXXX,        XXXXXXX,        KC_ENTER,       XXXXXXX,                      /**/                  XXXXXXX,        _______,        _______,        _______,        _______,        _______,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
                                                                         _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       KC_DEL,         _______
