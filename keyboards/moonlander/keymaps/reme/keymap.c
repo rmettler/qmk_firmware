@@ -82,8 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // TOCO: maybe shift all columns one to the right (wasd on base position)
     [L_QWERTZ] = LAYOUT_moonlander(
         KC_ESC,         KC_H,           KC_1,           KC_2,           KC_3,           KC_4,           KC_ESC,          /**/  XXXXXXX,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_DELETE,
-        KC_P,           KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           XXXXXXX,         /**/  XXXXXXX,        CH_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BACKSPACE,
-        KC_J,           KC_LCTL,        KC_A,           KC_S,           KC_D,           KC_F,           XXXXXXX,         /**/  XXXXXXX,        KC_H,           KC_J,           KC_K,           KC_L,           CH_ODIA,        KC_ENTER,
+        KC_J,           KC_TAB,         KC_E,           KC_P,           KC_Q,           KC_R,           XXXXXXX,         /**/  XXXXXXX,        CH_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BACKSPACE,
+        KC_LCTL,        KC_A,           KC_S,           KC_W,           KC_D,           KC_F,           XXXXXXX,         /**/  XXXXXXX,        KC_H,           KC_J,           KC_K,           KC_L,           CH_ODIA,        KC_ENTER,
         KC_M,           KC_LSFT,        CH_Z,           KC_X,           KC_C,           KC_V,                            /**/                  KC_N,           KC_M,           CH_COMM,        CH_DOT,         CH_MINS,        KC_RSFT,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        XXXXXXX,         /**/  XXXXXXX,                        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_RCTL,
                                                                         KC_SPACE,       KC_LALT,        TO(L_COLEMAK_DH),/**/  XXXXXXX,        XXXXXXX,        XXXXXXX
@@ -118,16 +118,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // TODO: add layer toggle to mouse layer
     [L_NAV] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,      /**/  KC_NUM_LOCK,    XXXXXXX,        KC_PGUP,        KC_UP,          KC_PGDOWN,      XXXXXXX,        _______,
-        _______,        XXXXXXX,        XXXXXXX,        _______,        KC_BSPACE,      KC_DEL,         _______,      /**/  KC_CAPS_LOCK,   KC_HOME,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_END,         _______,
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,      /**/  KC_NUM_LOCK,    XXXXXXX,        KC_HOME,        KC_PGDOWN,      KC_PGUP,        KC_END,         _______,
+        _______,        XXXXXXX,        XXXXXXX,        _______,        KC_BSPACE,      KC_DEL,         _______,      /**/  KC_CAPS_LOCK,   XXXXXXX,        KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       _______,
         _______,        C(CH_Z),        XXXXXXX,        XXXXXXX,        KC_ENTER,       XXXXXXX,                      /**/                  XXXXXXX,        _______,        _______,        _______,        _______,        _______,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
                                                                         _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       KC_DEL,         _______
     ),
     [L_MOUSE] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   _______,        _______,
-        _______,        _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,      /**/  _______,        XXXXXXX,        KC_WH_U,        KC_MS_UP,       KC_WH_D,        XXXXXXX,        _______,
-        _______,        XXXXXXX,        _______,        KC_MS_BTN3,     KC_MS_BTN1,     XXXXXXX,        _______,      /**/  _______,        KC_WH_L,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_WH_R,        _______,
+        _______,        _______,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,        _______,      /**/  _______,        XXXXXXX,        KC_WH_L,        KC_WH_D,        KC_WH_U,        KC_WH_R,        _______,
+        _______,        XXXXXXX,        _______,        KC_MS_BTN3,     KC_MS_BTN1,     XXXXXXX,        _______,      /**/  _______,        XXXXXXX,        KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    _______,
         _______,        C(CH_Z),        XXXXXXX,        C(KC_C),        KC_MS_BTN2,     C(KC_V),                      /**/                  XXXXXXX,        C(KC_X),        XXXXXXX,        XXXXXXX,        _______,        _______,
         _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
                                                                         _______,        _______,        TO(L_COLEMAK_DH),/**/_______,       KC_DEL,         _______
