@@ -77,15 +77,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,         LT(L_SYM, KC_TAB),  CTL_T(KC_SPACE), CTL_T(KC_SPACE), SFT_T(KC_ENTER), KC_LGUI,         XXXXXXX,        XXXXXXX,        TG(L_SETTINGS)
     ),
     [L_SYM] = LAYOUT_planck_grid(
-        XXXXXXX,        CH_DEG,         CH_TILD,        CH_CIRC,         CH_PERC,            XXXXXXX,    /**/ XXXXXXX,         CH_AMPR,         CH_LSBR,         CH_RSBR,        CH_PIPE,        _______,
-        _______,        KC_KP_PLUS,     CH_MINS,        CH_ASTR,         CH_SLSH,            CH_HASH,    /**/ CH_QUOT,         CH_EQL,          CH_LRBR,         CH_RRBR,        CH_LCBR,        _______,
-        _______,        CH_AT,          CH_EURO,        CH_DLR,          CH_BSLS,            CH_GRV,     /**/ CH_ACUT,         CH_DQUO,         CH_LABR,         CH_RABR,        CH_RCBR,        _______,
+        XXXXXXX,        CH_DEG,         CH_TILD,        CH_CIRC,         CH_PERC,            XXXXXXX,    /**/ XXXXXXX,         CH_AMPR,         CH_LSBR,         CH_RSBR,        _______,        _______,
+        _______,        KC_KP_PLUS,     CH_MINS,        CH_ASTR,         CH_SLSH,            CH_HASH,    /**/ CH_PIPE,         CH_EQL,          CH_LRBR,         CH_RRBR,        CH_LCBR,        _______,
+        _______,        _______,        CH_EURO,        CH_DLR,          CH_BSLS,            CH_GRV,     /**/ CH_ACUT,         CH_AT,           CH_LABR,         CH_RABR,        CH_RCBR,        _______,
         XXXXXXX,        _______,        _______,        TO(L_COLEMAK_DH),_______,            _______,         _______,         _______,         _______,         _______,        _______,        _______
     ),
     // TODO: add key to make layer toggled (TG doesn't work, because already in layer. maybe add another layer)
     [L_NUM] = LAYOUT_planck_grid(
-        XXXXXXX,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,            /**/ XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
-        _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,            /**/ XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
+        XXXXXXX,        KC_7,           KC_6,           KC_5,           KC_4,           KC_9,            /**/ XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
+        _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_8,            /**/ XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
         _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),         /**/ XXXXXXX,        KC_LWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        C(CH_Y),        _______,        TO(L_COLEMAK_DH),_______,       _______,         /**/ _______,        _______,        _______,        _______,        XXXXXXX,        XXXXXXX
     ),
