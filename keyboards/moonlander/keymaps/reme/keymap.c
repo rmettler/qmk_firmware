@@ -1,5 +1,5 @@
 #include "diahold.h"
-#include "taphold_config.h"
+//#include "taphold_config.h"
 
 #include <keyboards/moonlander/moonlander.h>
 
@@ -15,14 +15,6 @@
 #define CH_RABR CH_RABK
 #define CH_PND  S(CH_DLR)
 
-
-static inline void dprint_keycode_event(const char *const context, const uint16_t keycode, const keyrecord_t *record) {
-#ifdef CONSOLE_ENABLE
-    dprintf("%s: keycode=%04x (c,r)=%d,%d pressed=%d tap.count=%d tap.interrupted=%d time=%d\n", context, keycode, record->event.key.col, record->event.key.row, record->event.pressed,
-            record->tap.count, record->tap.interrupted, record->event.time);
-#endif
-}
-
 // mm: mod morph (given key+modifier are replaced with another key+modifier)
 enum custom_keycodes
 {
@@ -31,9 +23,6 @@ enum custom_keycodes
     dh_u_ue = LT(0, KC_U),
     RGB_SLD = ML_SAFE_RANGE,
     mm_bspace_del,
-    mm_lbrackets,
-    mm_rbrackets,
-    mm_quest_bang,
     mm_quotes
 };
 
@@ -77,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,        dh_a_ae,        KC_R,           KC_S,            KC_T,            KC_G,          XXXXXXX,        /**/  XXXXXXX,        KC_M,           KC_N,             KC_E,            KC_I,           dh_o_oe,             XXXXXXX,
         XXXXXXX,        SFT_T(CH_Z),    CTL_T(KC_X),    ALT_T(KC_C),     KC_D,            GUI_T(KC_V),                   /**/                  GUI_T(KC_K),    KC_H,             ALT_T(CH_COMM),  CTL_T(CH_DOT),  SFT_T(CH_QUES),      XXXXXXX,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,         LT(L_NAV,KC_ESC),               TG(L_QWERTZ),   /**/  TG(L_SETTINGS),                 LT(L_NUM,KC_DEL), XXXXXXX,         XXXXXXX,        XXXXXXX,             XXXXXXX,
-                                                                         LT(L_SYM_R,KC_SPC), LT(L_MOUSE, KC_TAB),XXXXXXX,/**/  XXXXXXX,     LT(L_FUNC,KC_BSPC),LT(L_SYM_L,KC_ENTER)
+                                                                         LT(L_SYM_R,KC_SPC), LT(L_MOUSE, KC_TAB),XXXXXXX,/**/  XXXXXXX,  LT(L_FUNC,KC_BSPC),   LT(L_SYM_L,KC_ENTER)
     ),
     // TODO: add modifier (on thumb?) to toggle numbers with f keys
     // TOCO: maybe shift all columns one to the right (wasd on base position)
@@ -86,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_J,           KC_TAB,         KC_E,           KC_P,           KC_Q,           KC_R,           XXXXXXX,         /**/  XXXXXXX,        CH_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BACKSPACE,
         KC_LCTL,        KC_A,           KC_S,           KC_W,           KC_D,           KC_F,           XXXXXXX,         /**/  XXXXXXX,        KC_H,           KC_J,           KC_K,           KC_L,           CH_ODIA,        KC_ENTER,
         KC_M,           KC_LSFT,        CH_Z,           KC_X,           KC_C,           KC_V,                            /**/                  KC_N,           KC_M,           CH_COMM,        CH_DOT,         CH_MINS,        KC_RSFT,
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        XXXXXXX,         /**/  XXXXXXX,                        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_RCTL,
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        _______,         /**/  _______,                        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_RCTL,
                                                                         KC_SPACE,       KC_LALT,        XXXXXXX,         /**/  XXXXXXX,        XXXXXXX,        XXXXXXX
     ),
     // TODO: as non dead key: grave `, circ ^, tild ~
@@ -108,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [L_SYM_R] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,        _______,        _______,        _______,
-        _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        CH_EQL,         CH_AMPR,        CH_LSBR,        CH_RSBR,        CH_EXLM,        _______,
-        _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        CH_PIPE,        mm_quotes,      CH_LRBR,        CH_RRBR,        CH_LCBR,        _______,
-        _______,        _______,        _______,        _______,        _______,        _______,                      /**/                  CH_ACUT,        CH_AT,          CH_LABR,        CH_RABR,        CH_RCBR,        _______,
+        _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        CH_AMPR,        CH_EQL,         CH_LSBR,        CH_RSBR,        CH_RCBR,        _______,
+        _______,        _______,        _______,        KC_ENTER,       mm_bspace_del,  _______,        _______,      /**/  _______,        CH_PIPE,        mm_quotes,      CH_LRBR,        CH_RRBR,        CH_LCBR,        _______,
+        _______,        _______,        _______,        _______,        _______,        _______,                      /**/                  CH_ACUT,        CH_AT,          CH_LABR,        CH_RABR,        SFT_T(CH_EXLM), _______,
         _______,        _______,        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
                                                                         _______,        _______,        _______,      /**/  _______,       _______,        _______
     ),
@@ -158,36 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                         _______,        _______,        _______,      /**/  _______,        _______,       _______
     ),
 };
-// clang-format on
-// clang-format on
 
-static bool is_diahold(const uint16_t keycode) { return (keycode >= dh_a_ae && keycode <= dh_u_ue); }
-
-static bool is_alpha(const uint16_t keycode) { return (keycode >= KC_A && keycode <= KC_Z); }
-
-static bool is_num(const uint16_t keycode) { return (keycode >= KC_1 && keycode <= KC_0) || (keycode >= KC_KP_1 && keycode <= KC_KP_0); }
-
-static bool is_alphanum(const uint16_t keycode) { return is_alpha(keycode) || is_num(keycode); }
-
-static taphold_config_t map_taphold_config(const uint16_t keycode) {
-    if (is_diahold(keycode)) {
-        return (taphold_config_t){.tapping_term = 150, .repeat_primary = false, .decision_mode = taphold_decision_mode_time_only};
-    }
-    const uint16_t primary = keycode & 0xFF;
-    if (is_alphanum(primary)) {
-        return (taphold_config_t){.tapping_term = 150, .repeat_primary = false, .decision_mode = taphold_decision_mode_other_key_tap};
-    }
-    if (primary == KC_ENTER) {
-        return (taphold_config_t){.tapping_term = 150, .repeat_primary = true, .decision_mode = taphold_decision_mode_other_key_press};
-    }
-    if (primary == KC_SPACE) {
-        return (taphold_config_t){.tapping_term = 150, .repeat_primary = true, .decision_mode = taphold_decision_mode_other_key_tap};
-    }
-    if (primary == KC_TAB) {
-        return (taphold_config_t){.tapping_term = 150, .repeat_primary = false, .decision_mode = taphold_decision_mode_other_key_press};
-    }
-    return (taphold_config_t){.tapping_term = 150, .repeat_primary = false, .decision_mode = taphold_decision_mode_time_only};
-}
 
 static diahold_config_t map_diahold(const uint16_t keycode) {
     switch (keycode) {
@@ -206,9 +166,8 @@ typedef struct {
 
 static mod_morph_config_t map_mod_morph(uint16_t keycode) {
     switch (keycode) {
-        case mm_bspace_del: return (mod_morph_config_t){MOD_BIT(KC_LALT), KC_BSPACE, KC_DEL};
+        case mm_bspace_del: return (mod_morph_config_t){MOD_BIT(KC_LSHIFT), KC_BSPACE, KC_DEL};
         case mm_quotes: return (mod_morph_config_t){MOD_BIT(KC_LSHIFT), CH_QUOT, CH_DQUO};
-        case mm_quest_bang: return (mod_morph_config_t){MOD_BIT(KC_LSHIFT), CH_QUES, CH_EXLM};
     }
     return (mod_morph_config_t){.mod_mask = 0};
 }
@@ -233,7 +192,6 @@ static bool process_mod_morph(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    dprint_keycode_event("process_record_user", keycode, record);
     if (process_diahold(keycode, record)) {
         return false;
     }
@@ -250,113 +208,80 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
-    dprint_keycode_event("get_custom_auto_shifted_key", keycode, record);
-    switch (keycode) {
-        case KC_2 ... KC_3:
-        case KC_5 ... KC_6:
-        case KC_9 ... KC_0:
-        case CH_DOT:
-            if (layer_state_is(L_NUM)) return true;
-    }
-    return false;
-}
-
-typedef struct {
-    uint16_t normal;
-    uint16_t shifted;
-    bool     unhandeled;
-} autoshift_codes_t;
-
-autoshift_codes_t map_autshift_codes(const uint16_t keycode) {
-    switch (keycode) {
-        case KC_6: return (autoshift_codes_t){KC_6, CH_LRBR};      // '('
-        case KC_5: return (autoshift_codes_t){KC_5, CH_RRBR};      // ')'
-        case KC_3: return (autoshift_codes_t){KC_3, CH_PLUS};      // '+'
-        case KC_2: return (autoshift_codes_t){KC_2, CH_MINS};      // '-'
-        case KC_0: return (autoshift_codes_t){KC_0, CH_ASTR};      // '*'
-        case KC_9: return (autoshift_codes_t){KC_9, CH_SLSH};      // '/'
-        case CH_DOT: return (autoshift_codes_t){CH_DOT, CH_COLN};  // ':'
-    };
-    return (autoshift_codes_t){.unhandeled = true};
-}
-
-void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
-    dprint_keycode_event("autoshift_press_user", keycode, record);
-    const autoshift_codes_t codes = map_autshift_codes(keycode);
-    dprintf("  codes: handeled=%d\n", !codes.unhandeled);
-    if (codes.unhandeled) {
-        if (shifted) {
-            add_weak_mods(MOD_BIT(KC_LSFT));
-        }
-        register_code16(keycode);
-    } else {
-        dprintf("  codes: normal=%08x shifted=%08x\n", codes.normal, codes.shifted);
-        register_code16((!shifted) ? codes.normal : codes.shifted);
-    }
-}
-
-void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
-    dprint_keycode_event("autoshift_release_user", keycode, record);
-    const autoshift_codes_t codes = map_autshift_codes(keycode);
-    if (codes.unhandeled) {
-        unregister_code16(keycode);
-    } else {
-        unregister_code16((!shifted) ? codes.normal : codes.shifted);
-    }
-}
-
 // Regularly called function, e.g. to check on timers (timer_read(), timer_elapsed()):
 // void matrix_scan_user() { }
 
+extern rgb_config_t rgb_matrix_config;
+
 void keyboard_post_init_user(void) {
-    rgb_matrix_enable();
-    // debug_enable   = true;
-    // debug_keyboard = true;
+  rgb_matrix_enable();
 }
 
-static const HSV PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
-    [L_COLEMAK_DH] = {{0}},
+const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+    [L_QWERTZ] = { {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255}, {26,255,255} },
 
-    [L_QWERTZ] = {{0}},
+    [L_SYM_L] = { {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255} },
 
-    [L_SYM_L] = {{0}},
+    [L_SYM_R] = { {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255} },
 
-    [L_SYM_R] = {{0}},
+    [L_NAV] = { {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255} },
 
-    [L_NAV] = {{0}},
+    [L_FUNC] = { {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255} },
 
-    [L_FUNC] = {{0}},
+    [L_NUM] = { {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255}, {219,255,255} },
 
-    [L_NUM] = {{0}},
+    [L_MOUSE] = { {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255}, {230,255,255} },
 
-    [L_MOUSE] = {{0}},
-
-    [L_SETTINGS] = {{0}},
+    [L_SETTINGS] = { {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255} },
 };
 
-static bool hsv_eq(const HSV l, const HSV r) { return l.h == r.h && l.s == r.s && l.v == r.v; }
-
 void set_layer_color(int layer) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        HSV hsv = ledmap[1][i];
-        if (!hsv_eq(hsv, (HSV){HSV_OFF})) {
-            // hsv.v   = (uint32_t)hsv.v * rgb_matrix_get_val() / 255U;  // TODO only do this with a global dim level so that it can be adjusted seperately
-            RGB rgb = hsv_to_rgb(hsv);
-            // float f   = (float)rgb_matrix_get_val() / 255.f;  TODO
-            // rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);  TODO
-            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-        }
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    HSV hsv = {
+      .h = pgm_read_byte(&ledmap[layer][i][0]),
+      .s = pgm_read_byte(&ledmap[layer][i][1]),
+      .v = pgm_read_byte(&ledmap[layer][i][2]),
+    };
+    if (!hsv.h && !hsv.s && !hsv.v) {
+        rgb_matrix_set_color( i, 0, 0, 0 );
+    } else {
+        RGB rgb = hsv_to_rgb( hsv );
+        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
     }
+  }
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (rgb_matrix_get_suspend_state() || keyboard_config.disable_layer_led) {
-        return;
-    }
-    const uint8_t layer = get_highest_layer(layer_state);
-    switch (layer) {
-        case L_COLEMAK_DH ... L_NAV: set_layer_color(layer); break;  // TODO
-        default: break;
-    }
+void rgb_matrix_indicators_user(void) {
+  if (keyboard_config.disable_layer_led) { return; }
+  switch (biton32(layer_state)) {
+    case L_QWERTZ:
+      set_layer_color(L_QWERTZ);
+      break;
+    case L_SYM_L:
+      set_layer_color(L_SYM_L);
+      break;
+    case L_SYM_R:
+      set_layer_color(L_SYM_R);
+      break;
+    case L_NUM:
+      set_layer_color(L_NUM);
+      break;
+    case L_NAV:
+      set_layer_color(L_NAV);
+      break;
+    case L_FUNC:
+      set_layer_color(L_FUNC);
+      break;
+    case L_MOUSE:
+      set_layer_color(L_MOUSE);
+      break;
+    case L_SETTINGS:
+      set_layer_color(L_SETTINGS);
+      break;
+   default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
 }
