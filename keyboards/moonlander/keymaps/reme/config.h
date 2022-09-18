@@ -15,7 +15,7 @@
 // Time after which a key press is regarded as a hold. Default: 200ms
 #define TAPPING_TERM 150
 
-#define IGNORE_MOD_TAP_INTERRUPT
+#define PERMISSIVE_HOLD
 
 //*****************************************************************************
 //* RGB Matrix Configuration Options
