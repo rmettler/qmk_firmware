@@ -18,6 +18,12 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 
 //*****************************************************************************
+//* One-Shot-Modifier Configuration Options
+//*****************************************************************************
+#define ONESHOT_TAP_TOGGLE 3  /* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TIMEOUT 3000  /* Time (in ms) before the one shot key is released */
+
+//*****************************************************************************
 //* RGB Matrix Configuration Options
 //*****************************************************************************
 #undef RGB_DISABLE_TIMEOUT
