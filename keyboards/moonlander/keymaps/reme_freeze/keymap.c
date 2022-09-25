@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,        CH_EQL,         CH_LCBR,        CH_RCBR,        CH_SLSH,        CH_AMPR,        _______,      /**/  _______,        _______,        CH_DQUO,        CH_LRBR,        CH_RRBR,        CH_EXLM,        _______,
         _______,        CH_DIAE,        CH_EURO,        CH_CIRC,        CH_BSLS,        CH_GRV,                       /**/                  CH_ACUT,        CH_PIPE,        CH_LABR,        CH_RABR,        TO(L_FUNC),     _______,
         _______,        _______,        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        TO(L_BASE),     TO(L_MOUSE),    _______,      /**/  _______,        KC_DEL,         TO(L_NUMNAV)
+                                                                        TO(L_BASE),     TO(L_MOUSE),    _______,      /**/  _______,        mm_bspace_del,  TO(L_NUMNAV)
     ),
     // TODO: add key to make layer toggled (TG doesn't work, because already in layer. maybe add another layer) 
     [L_NUMNAV] = LAYOUT_moonlander(
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,        KC_3,           KC_2,           KC_1,           KC_0,           KC_8,           _______,      /**/  _______,        _______,        KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       _______,
         _______,        _______,        _______,        C(KC_C),        C(KC_V),        _______,                      /**/                  _______,        KC_TAB,         _______,        _______,        TO(L_FUNC),     _______,
         _______,        _______,        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
-                                                                        TO(L_BASE),     _______,        _______,      /**/  _______,        KC_DEL,         TO(L_SYM)
+                                                                        TO(L_BASE),     _______,        _______,      /**/  _______,        mm_bspace_del,  TO(L_SYM)
     ),
     [L_FUNC] = LAYOUT_moonlander(
         _______,        _______,        _______,        _______,        _______,        _______,        _______,      /**/  _______,        _______,        _______,        _______,          _______,      _______,        _______,
