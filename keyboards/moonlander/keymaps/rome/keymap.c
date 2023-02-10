@@ -39,7 +39,7 @@ enum custom_keycodes
 enum layers
 {
     L_COLEMAK_DH = 0,
-    L_COLEMAK_DH2,
+    L_SCHAR,
     L_QWERTZ,
     L_SYM,
     L_NUM,
@@ -71,28 +71,28 @@ enum layers
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_COLEMAK_DH] = LAYOUT_moonlander(
         XXXXXXX,        KC_F1,          KC_F2,          KC_F3,           KC_F4,           KC_F5,        KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         KC_DELETE,
-        XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_QUES,        KC_BACKSPACE,
-        KC_ESC,         dh_a_ae,        ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T), KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    dh_o_oe,        CH_SCLN,
+        KC_ESC,         KC_Q,           KC_W,           LT(L_SCHAR, KC_F),KC_P,           KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_QUES,        KC_BACKSPACE,
+        SFT_T(KC_ESC),  dh_a_ae,        ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T), KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    dh_o_oe,        SFT_T(CH_SCLN),
         XXXXXXX,        CH_Z,           KC_X,           KC_C,            WIN_T(KC_D),     KC_V,                          /**/                  KC_K,           WIN_T(KC_H),     CH_COMM,         CH_DOT,         CH_MINS,        KC_RSFT,
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_LWIN,         KC_LALT,                       RESET,           /**/  DEBUG,                          KC_LWIN,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,         XXXXXXX,                       RESET,           /**/  DEBUG,                          XXXXXXX,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
                                                                          CTL_T(KC_SPACE), LT(L_SYM, KC_TAB),TG(L_NUM),   /**/  TG(L_NAV),      KC_BSPACE,      SFT_T(KC_ENTER)
     ),
-    [L_COLEMAK_DH2] = LAYOUT_moonlander(
-        XXXXXXX,        KC_F1,          KC_F2,          KC_F3,           KC_F4,           KC_F5,        KC_F11,          /**/  KC_F12,         KC_F6,          KC_F7,           KC_F8,           KC_F9,          KC_F10,         KC_DELETE,
-        XXXXXXX,        KC_Q,           KC_W,           KC_F,            KC_P,            KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_QUES,        KC_BACKSPACE,
-        KC_ESC,         dh_a_ae,        KC_R,           KC_S,            KC_T,            KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           KC_N,            KC_E,            KC_I,           dh_o_oe,        CH_SCLN,
-        XXXXXXX,        CH_Z,           KC_X,           KC_C,            KC_D,            KC_V,                          /**/                  KC_K,           KC_H,            CH_COMM,         CH_DOT,         CH_MINS,        KC_RSFT,
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_LWIN,         KC_LALT,                       RESET,           /**/  DEBUG,                          KC_LWIN,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
-                                                                         CTL_T(KC_SPACE), LT(L_SYM, KC_TAB),DF(L_COLEMAK_DH),/**/TG(L_NAV),      KC_BSPACE,      SFT_T(KC_ENTER)
+    [L_SCHAR] = LAYOUT_moonlander(
+        _______,        _______,        _______,        _______,         _______,      _______,        _______,          /**/  _______,        _______,        _______,         _______,         _______,        _______,        _______,
+        _______,        _______,        _______,        _______,         _______,      _______,        _______,          /**/  _______,        _______,        _______,         _______,         _______,        _______,        _______,
+        _______,        _______,        KC_LSFT,        _______,         _______,      _______,        _______,          /**/  _______,        _______,        _______,         _______,         KC_RSFT,        _______,        _______,
+        _______,        _______,        _______,        _______,         _______,      _______,                          /**/                  _______,        _______,         _______,         _______,        _______,        _______,
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,         XXXXXXX,                      _______,          /**/  _______,                        XXXXXXX,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
+                                                                         _______,      _______,        _______,          /**/  _______,        _______,        _______
     ),
     // TODO: add modifier (on thumb?) to toggle numbers with f keys
     // TOCO: maybe shift all columns one to the right (wasd on base position)
     [L_QWERTZ] = LAYOUT_moonlander(
         KC_GRAVE,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_ESC,          /**/  XXXXXXX,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_DELETE,
         XXXXXXX,        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,            /**/  XXXXXXX,        CH_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BACKSPACE,
-        XXXXXXX,        KC_SCRL,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,            /**/  XXXXXXX,        KC_H,           KC_J,           KC_K,           KC_L,           CH_ODIA,        KC_ENTER,
+        KC_ESC,         KC_SCRL,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,            /**/  XXXXXXX,        KC_H,           KC_J,           KC_K,           KC_L,           CH_ODIA,        KC_ENTER,
         XXXXXXX,        KC_LSFT,        CH_Z,           KC_X,           KC_C,           KC_V,                            /**/                  KC_N,           KC_M,           CH_COMM,        CH_DOT,         CH_MINS,        KC_RSFT,
-        XXXXXXX,        KC_LCTL,        XXXXXXX,        XXXXXXX,        XXXXXXX,                        XXXXXXX,         /**/  XXXXXXX,                        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_RCTL,
+        XXXXXXX,        KC_LCTL,        XXXXXXX,        XXXXXXX,        KC_LALT,                        KC_B,            /**/  XXXXXXX,                        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_RCTL,
                                                                         KC_SPACE,       KC_LALT,        DF(L_COLEMAK_DH),/**/  XXXXXXX,        XXXXXXX,        XXXXXXX
     ),
     // TODO: as non dead key: grave `, circ ^, tild ~
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_NUM] = LAYOUT_moonlander(
         _______,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           XXXXXXX,      /**/  XXXXXXX,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           _______,
         _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/  DF(L_QWERTZ),   XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
-        _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,           _______,      /**/  DF(L_COLEMAK_DH2),XXXXXXX,      KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
+        _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,           _______,      /**/  _______,        XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
         _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        KC_LWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
                                                                         _______,        _______,        _______,      /**/  _______,        KC_DEL,         _______
