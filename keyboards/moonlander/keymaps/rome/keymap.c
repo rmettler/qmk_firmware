@@ -40,7 +40,7 @@ enum layers
 {
     L_COLEMAK_DH = 0,
     L_SCHAR,
-    L_QWERTZ,
+    L_GAME,
     L_SYM,
     L_NUM,
     L_NAV,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,         KC_Q,           KC_W,           LT(L_SCHAR, KC_F),KC_P,           KC_B,         KC_AUDIO_VOL_UP, /**/  KC_CALCULATOR,  KC_J,           KC_L,            dh_u_ue,         CH_Y,           CH_QUES,        KC_BACKSPACE,
         SFT_T(KC_ESC),  dh_a_ae,        ALT_T(KC_R),    LT(L_NAV, KC_S), LT(L_SYM, KC_T), KC_G,       KC_AUDIO_VOL_DOWN, /**/  XXXXXXX,        KC_M,           LT(L_SYM, KC_N), LT(L_NUM, KC_E), ALT_T(KC_I),    dh_o_oe,        SFT_T(CH_SCLN),
         XXXXXXX,        CH_Z,           KC_X,           KC_C,            WIN_T(KC_D),     KC_V,                          /**/                  KC_K,           WIN_T(KC_H),     CH_COMM,         CH_DOT,         CH_MINS,        KC_RSFT,
-        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,         XXXXXXX,                       RESET,           /**/  DEBUG,                          XXXXXXX,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,         XXXXXXX,                       DF(L_GAME),      /**/  RESET,                          XXXXXXX,         XXXXXXX,         XXXXXXX,        XXXXXXX,        XXXXXXX,
                                                                          CTL_T(KC_SPACE), LT(L_SYM, KC_TAB),TG(L_NUM),   /**/  TG(L_NAV),      KC_BSPACE,      SFT_T(KC_ENTER)
     ),
     [L_SCHAR] = LAYOUT_moonlander(
@@ -87,13 +87,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // TODO: add modifier (on thumb?) to toggle numbers with f keys
     // TOCO: maybe shift all columns one to the right (wasd on base position)
-    [L_QWERTZ] = LAYOUT_moonlander(
-        KC_GRAVE,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_ESC,          /**/  XXXXXXX,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_DELETE,
+    [L_GAME] = LAYOUT_moonlander(
+        KC_GRAVE,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,            /**/  XXXXXXX,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_DELETE,
         XXXXXXX,        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,            /**/  XXXXXXX,        CH_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BACKSPACE,
-        KC_ESC,         KC_SCRL,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,            /**/  XXXXXXX,        KC_H,           KC_J,           KC_K,           KC_L,           CH_ODIA,        KC_ENTER,
+        KC_ESC,         KC_LCTL,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,            /**/  XXXXXXX,        KC_H,           KC_J,           KC_K,           KC_L,           CH_ODIA,        KC_ENTER,
         XXXXXXX,        KC_LSFT,        CH_Z,           KC_X,           KC_C,           KC_V,                            /**/                  KC_N,           KC_M,           CH_COMM,        CH_DOT,         CH_MINS,        KC_RSFT,
-        XXXXXXX,        KC_LCTL,        XXXXXXX,        XXXXXXX,        KC_LALT,                        KC_B,            /**/  XXXXXXX,                        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_RCTL,
-                                                                        KC_SPACE,       KC_LALT,        DF(L_COLEMAK_DH),/**/  XXXXXXX,        XXXXXXX,        XXXXXXX
+        XXXXXXX,        KC_LCTL,        KC_LWIN,        KC_B,           KC_LALT,                        XXXXXXX,         /**/  XXXXXXX,                        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_RCTL,
+                                                                        KC_SPACE,       KC_LALT,        DF(L_COLEMAK_DH),/**/  XXXXXXX,        XXXXXXX,        KC_ENTER
     ),
     // TODO: as non dead key: grave `, circ ^, tild ~
     // TODO: add double angle brackets to shifted version of <, >
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // TODO: add key to make layer toggled (TG doesn't work, because already in layer. maybe add another layer)
     [L_NUM] = LAYOUT_moonlander(
         _______,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           XXXXXXX,      /**/  XXXXXXX,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           _______,
-        _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/  DF(L_QWERTZ),   XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
+        _______,        KC_7,           KC_6,           KC_5,           KC_4,           KC_8,           _______,      /**/  DEBUG,          XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        KC_3,           KC_2,           LT(L_NAV, KC_1),KC_0,           KC_9,           _______,      /**/  _______,        XXXXXXX,        KC_LCTL,        _______,        KC_LSFT,        KC_LALT,        _______,
         _______,        C(CH_Z),        C(KC_X),        C(KC_C),        CH_DOT,         C(KC_V),                      /**/                  XXXXXXX,        KC_LWIN,        XXXXXXX,        XXXXXXX,        XXXXXXX,        _______,
         _______,        C(CH_Y),        _______,        _______,        _______,                        _______,      /**/  _______,                        _______,        _______,        _______,        _______,        _______,
@@ -318,7 +318,7 @@ static const HSV PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
                       {14, 255, 255},  {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {105, 255, 255}, {HSV_OFF},       {33, 255, 255}, {HSV_OFF},       {HSV_OFF},
                       {HSV_OFF},       {HSV_OFF},       {HSV_OFF},       {141, 255, 233}, {141, 255, 233}, {105, 255, 255}, {33, 255, 255}, {HSV_OFF},       {HSV_OFF}},
 
-    [L_QWERTZ] = {{0}},
+    [L_GAME] = {{0}},
 
     [L_SYM] = {{0}},
 
